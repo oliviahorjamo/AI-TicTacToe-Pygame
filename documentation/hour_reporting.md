@@ -4,7 +4,7 @@
 
 Date       | hours | target|
 -----------|------|--------|
- |  |  |
+16.1.2022 | 4 | Choose the topic for the project. Create basic structure of the program. Add dependencies. Create documentation. Make everything nice and ready for the course. |
 
 
 ## Week 2
