@@ -19,7 +19,7 @@ The space complexity of the algorithm is O(bm) such as in DFS.
 
 ## Program input and iutput
 
-The program will have a simple graphical user interface including a Main Menu and Game Menu. In the Main Menu, the user (human player) can choose a size of the game grid (3x3 or 25x25) and start the game. In the Game Menu, the user will see the game grid and by clicking a desired square, a cross is placed to the game grid. Based on the input given by the user, the AI player will make its own move (output) by placing a zero to the desired square. The user will see AI player's output and continues with new input. This continues until either human or AI has won the game. When the game is over, the player can choose to play a new game or go back to the main menu.
+The program will have a simple graphical user interface. The will see the 25x25 game grid and by clicking a desired square, a cross is placed to the game grid. Based on the input given by the user, the AI player will make its own move (output) by placing a zero to the desired square. The user will see AI player's output and continues with new input. This continues until either human or AI has won the game. When the game is over, the player can choose to play a new game or end the game.
 
 ## Programming and documentation language
 
