@@ -11,7 +11,7 @@ This program is tested with Python 3.8.10 version.
 ## Latest release
 
 You can find the latest release [here]().
-  
+
 
 ## Weekly reports
 

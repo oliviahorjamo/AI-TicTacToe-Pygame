@@ -5,6 +5,7 @@
 Date       | hours | target|
 -----------|------|--------|
 16.1.2022 | 4 | Choose the topic for the project. Create basic structure of the program. Add dependencies. Create documentation. Make everything nice and ready for the course. |
+17.1.2022 | 6 | Read and learn about Mini-Max algorithm. Write project specification document. Write weekly report. |
 
 
 ## Week 2
