@@ -17,7 +17,7 @@ As MiniMax performs DFS (Depth-First-Search), the time complecity is O(b^m). Ide
 
 The space complexity of the algorithm is O(bm) such as in DFS.
 
-## Program input and iutput
+## Program input and output
 
 The program will have a simple graphical user interface. The user will see the 25x25 game grid and by clicking a desired square, a cross is placed to the game grid. Based on the input given by the user, the AI player will make its own move (output) by placing a zero to the desired square. The user will see AI player's output and continues with new input. This continues until either human or AI has won the game. When the game is over, the player can choose to play a new game or end the game.
 
