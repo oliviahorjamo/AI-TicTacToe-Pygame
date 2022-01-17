@@ -1,11 +1,13 @@
 
 # Project speficiation
 
-This TicTacToe game is design to be an application for playing TicTacToe against an AI opponent.
+This TicTacToe game is designed to be an application for playing TicTacToe against an AI opponent.
 
-## Algorithm design
+## Algorithm and Data Structure design
 
-The idea is to create a MiniMax algorithm, which is an AI applied in two players game, such as TicTacToe. In specific, MiniMax is an algorithm that searches game trees and assumes that the players make alternate moves. Besides MiniMax, an Alpha-Beta pruning, an optimization technique for the Mini-Max algorithm, is implemented to the project. With the Alpha-Beta pruning, we are able to calculate the correct minimax decision without looking at every node in the game tree. This will reduce the computation time and allow us to search the game tree faster.
+The idea is to create a MiniMax algorithm, which is an decision-making AI applied in two players game, such as TicTacToe. In specific, MiniMax is a backtracking algorithm that searches game trees (nested data structures) and assumes that the players make alternate moves, and therefore this algorithm is suitable for this specific project.
+
+Besides MiniMax, an Alpha-Beta pruning, an optimization technique for the Mini-Max algorithm, is implemented to the project. With the Alpha-Beta pruning, we are able to calculate the correct minimax decision without looking at every node in the game tree. This will reduce the computation time and allow us to search the game tree faster.
 
 #### Time Complexity
 
@@ -15,9 +17,9 @@ As MiniMax performs DFS (Depth-First-Search), the time complecity is O(b^m). Ide
 
 The space complexity of the algorithm is O(bm) such as in DFS.
 
-## Program input and output
+## Program input and iutput
 
-The program will have a simple graphical user interface including a Main Menu and Game Menu. In the Main Menu, the user can choose the size of the game grid (3x3 or 25x25) and start the game. In the Game Menu, the user will see the game grid and by clicking a desired square, a cross is placed to the game grid. After this the AI player will make its own move and place a zero to the desired square. When game is over, the user can choose to play a new game or go back to the main menu.
+The program will have a simple graphical user interface including a Main Menu and Game Menu. In the Main Menu, the user (human player) can choose a size of the game grid (3x3 or 25x25) and start the game. In the Game Menu, the user will see the game grid and by clicking a desired square, a cross is placed to the game grid. Based on the input given by the user, the AI player will make its own move (output) by placing a zero to the desired square. The user will see AI player's output and continues with new input. This continues until either human or AI has won the game. When the game is over, the player can choose to play a new game or go back to the main menu.
 
 ## Programming and documentation language
 
@@ -32,6 +34,9 @@ Bachelor's in Computer Science
 https://www.javatpoint.com/mini-max-algorithm-in-ai
 
 https://www.javatpoint.com/ai-alpha-beta-pruning
+
+https://towardsdatascience.com/how-a-chess-playing-computer-thinks-about-its-next-move-8f028bd0e7b1
+
 
 
 
