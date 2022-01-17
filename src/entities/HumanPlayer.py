@@ -4,6 +4,7 @@ class HumanPlayer:
         pass
 
     def make_move(self, game):
-        position = int(input("Enter the position for 'X':  "))
-        game.insert_letter('X', position)
+        position_row = int(input("Enter a row position for 'X':  "))
+        position_col = int(input("Enter a column position for 'X':  "))
+        game.insert_letter('X', position_row, position_col)
         return
