@@ -18,7 +18,7 @@ At this point, I have everything set-up for the project and I think that the pro
 
 ## Problems
 
-I had little problems creating a game grid form tuple dictionary and that took more time that I assumed. Eventually, I got it working. 
+I had little problems creating a game grid from tuple dictionary and that took more time what I assumed. Eventually, I got it working. 
 
 ## Questions
 
