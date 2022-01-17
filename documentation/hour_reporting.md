@@ -5,7 +5,7 @@
 Date       | hours | target|
 -----------|------|--------|
 16.1.2022 | 4 | Choose the topic for the project. Create basic structure of the program. Add dependencies. Create documentation. Make everything nice and ready for the course. |
-17.1.2022 | 6 | Read and learn about MiniMax algorithm. Write project specification document. Write weekly report. Creating first release. |
+17.1.2022 | 8 | Read and learn about MiniMax algorithm. Write project specification document. Write weekly report. Code the 25x25 game grid. Create first release. |
 
 
 ## Week 2
@@ -46,10 +46,10 @@ Date       | hours| target|
 
  Week   | Hours     |
 --------|----------|
- 1      |    10   |
+ 1      |    12   |
  2      |       |
  3      |        |
  4      |        |
  5      |        |
  6      |       |
-**Total** | **10**|
+**Total** | **12**|
