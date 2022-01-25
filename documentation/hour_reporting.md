@@ -12,7 +12,9 @@ Date       | hours | target|
 
 Date       | hours | target|
 -----------|------|--------|
- |  |  |
+25.1.2022 | 8  | Code the basics of the game (and pygame) functionalities. Start docstring for the code.  Start testing the methods|
+26.1.2022 | ?  | Continue basics of the game. Start minimax algorithm. Continue testing. |
+27.1.2022 | ?  | ? |
 
 
 ## Week 3
