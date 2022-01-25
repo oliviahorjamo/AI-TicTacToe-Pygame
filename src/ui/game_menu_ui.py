@@ -11,7 +11,6 @@ class GameMenuUi:
         self.game_board = GameBoard()
 
     def draw_game_board(self):
-
         for row in range(0, self.game_board.grid_size):
             for col in range(0, self.game_board.grid_size):
                 rect = pygame.Rect(self.square_size * row,
@@ -19,17 +18,24 @@ class GameMenuUi:
                                     self.square_size, self.square_size)
                 pygame.draw.rect(self.window, self.white, rect, 1)
 
-    def draw_x(self, pos_row, pos_col): # tää kesken
-        for i in range(6):
-            pygame.draw.aaline(self.window, self.white, (pos_row + i, pos_col), (self.game_board.grid_size + pos_col + i, self.game_board.grid_size + pos_col), 1)
-
+    def draw_x(self, pos_row, pos_col):
+        row_pos = pos_row * self.game_board.grid_size + 1
+        col_pos = pos_col * self.game_board.grid_size
+        pygame.draw.aaline(self.window,self.white,
+                            (row_pos, col_pos),
+                            (row_pos + self.game_board.grid_size,
+                            col_pos + self.game_board.grid_size),
+                            1)
+        pygame.draw.aaline(self.window,self.white,
+                            (row_pos + 30, col_pos),
+                            (row_pos,
+                             col_pos + self.game_board.grid_size),
+                            1)
 
     def draw_circle(self):
         for row in range(self.game_board.grid_size):
             for col in range(self.game_board.grid_size):
                 pygame.draw.circle()
-
-
 
     def draw_new_game_button(self):
         button_location = pygame.Rect(320, 10, 115, 25)
