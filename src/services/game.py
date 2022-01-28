@@ -127,5 +127,3 @@ class Game:
             return True
         return False
 
-    def restart_game(self):
-        pass
