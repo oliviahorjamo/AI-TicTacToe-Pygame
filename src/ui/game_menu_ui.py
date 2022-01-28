@@ -37,7 +37,6 @@ class GameMenuUi:
         col_pos = pos_col * self.square_size + self.square_size // 2 - 1
         pygame.draw.circle(self.window, self.white, (row_pos, col_pos), 12, 3)
 
-
     def draw_new_game_button(self):
         button_location = pygame.Rect(470, 620, 115, 25)
         pygame.draw.rect(self.window, self.white, button_location)
@@ -50,7 +49,28 @@ class GameMenuUi:
             return True
         return False
 
+    def draw_whose_turn(self, text):
+        font = pygame.font.SysFont('Times New Roman', 20)
+        text = font.render(f'{text}', False, (250, 250, 250))
+        self.render.window.blit(text, (20, 620, 115, 30))
+
     def reset_game_board(self):
         self.draw_game_board()
         pygame.display.update()
         self.window.fill((0, 0, 0))
+
+    def draw_change_turn(self, turn, check_win):
+        location = pygame.Rect(15, 620, 200, 25)
+        if turn == True:
+            pygame.draw.rect(self.window, (0, 0, 0), location)
+            self.draw_whose_turn('YOUR TURN!')
+            if check_win == True:
+                pygame.draw.rect(self.window, (0, 0, 0), location)
+                self.draw_whose_turn('AI WON!')
+
+        if turn == False:
+            pygame.draw.rect(self.window, (0, 0, 0), location)
+            self.draw_whose_turn('AI IS PLAYING!')
+            if check_win == True:
+                pygame.draw.rect(self.window, (0, 0, 0), location)
+                self.draw_whose_turn('YOU WON!')
