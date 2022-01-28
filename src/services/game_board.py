@@ -9,3 +9,4 @@ class GameBoard:
         """A method that updates the game board while playing."""
         for i in self.grid:
             print(i)
+

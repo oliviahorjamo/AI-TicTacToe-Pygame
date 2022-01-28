@@ -4,9 +4,9 @@ from services.game_board import GameBoard
 
 class GameMenuUi:
     def __init__(self):
-        self.render = Renderer(753, 820, (0, 0, 0))
+        self.render = Renderer(800, 868, (0, 0, 0))
         self.window = self.render.window
-        self.square_size = 30
+        self.square_size = 32
         self.white = (250, 250, 250)
         self.game_board = GameBoard()
 
@@ -21,24 +21,23 @@ class GameMenuUi:
     def draw_x(self, pos_row, pos_col):
         row_pos = pos_row * self.square_size
         col_pos = pos_col * self.square_size
-        if col_pos > 63:
-            pygame.draw.line(self.window,self.white,
-                                (row_pos, col_pos),
-                                (row_pos + self.square_size,
-                                col_pos + self.square_size),
-                                3)
-            pygame.draw.line(self.window,self.white,
-                                (row_pos + 30, col_pos),
-                                (row_pos,
-                                col_pos + self.square_size),
-                                3)
+        if col_pos >= 60:
+            pygame.draw.aaline(self.window,self.white,
+                                    (row_pos, col_pos),
+                                    (row_pos + self.square_size,
+                                    col_pos + self.square_size),
+                                    4)
+            pygame.draw.aaline(self.window,self.white,
+                                    (row_pos + 30, col_pos),
+                                    (row_pos,
+                                    col_pos + self.square_size),
+                                    4)
 
     def draw_circle(self, pos_row, pos_col):
         row_pos = pos_row * self.square_size + self.square_size // 2
         col_pos = pos_col * self.square_size + self.square_size // 2 + 2
         if col_pos > 63:
             pygame.draw.circle(self.window, self.white, (row_pos, col_pos), 10, 2)
-            print(row_pos, col_pos)
 
 
     def draw_new_game_button(self):

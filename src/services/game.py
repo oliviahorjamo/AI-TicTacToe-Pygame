@@ -11,9 +11,7 @@ class Game:
     def __init__(self):
         """A constructor of the class that initializes the game functionalities."""
 
-        self.game_board = GameBoard()
-
-    def check_for_space(self, row, col):
+    def check_for_space(self, row, col, board):
         """A method that checks whether the player can insert letter to the game board.
 
         Args:
@@ -23,11 +21,11 @@ class Game:
         Returns:
             (boolean): returns True if the index of the game board is 0, else False.
         """
-        if self.game_board.grid[row][col] == 0:
+        if board[row][col] == 0:
             return True
         return False
 
-    def insert_letter(self, player, position_row, position_col):
+    def insert_letter(self, player, position_row, position_col, board):
         """A method to insert a letter to a given position on the gameboard.
 
         Args:
@@ -35,8 +33,7 @@ class Game:
             position_row (int): a row position to insert the letter.
             position_col (int): a column position to insert the letter.
         """
-
-        self.game_board.grid[position_row][position_col] = player
+        board[position_row][position_col] = player
 
     def check_for_win_horizontal(self, grid, grid_size):
         """A method to check if there is a horizontal win.
@@ -118,15 +115,15 @@ class Game:
                         return True
         return False
 
-    def check_win(self):
+    def check_win(self, board, grid_size):
 
-        if self.check_for_win_horizontal(self.game_board.grid, self.game_board.grid_size):
+        if self.check_for_win_horizontal(board, grid_size):
             return True
-        if self.check_for_win_vertical(self.game_board.grid, self.game_board.grid_size):
+        if self.check_for_win_vertical(board, grid_size):
             return True
-        if self.check_for_win_asc_diagonal(self.game_board.grid, self.game_board.grid_size):
+        if self.check_for_win_asc_diagonal(board, grid_size):
             return True
-        if self.check_for_win_desc_diagonal(self.game_board.grid, self.game_board.grid_size):
+        if self.check_for_win_desc_diagonal(board, grid_size):
             return True
         return False
 

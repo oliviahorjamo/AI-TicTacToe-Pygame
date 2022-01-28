@@ -11,12 +11,12 @@ from ui.game_menu_ui import GameMenuUi
 def main():
     pygame.init()
     game = Game()
-    game_board = GameBoard()
     ai_player = AiPlayer()
     renderer = Renderer(450, 450, (0, 0, 0))
     game_ui = GameMenuUi()
-    human_player = HumanPlayer()
-    player = 1
+    game_board = GameBoard()
+    human_turn = False
+
 
 
     while True:
@@ -29,19 +29,21 @@ def main():
                 if pygame.mouse.get_pressed():
                     pos_row = event.pos[0] // game_ui.square_size
                     pos_col = event.pos[1] // game_ui.square_size
-                    if game.check_for_space(pos_row, pos_col):
-                        human_player.make_move(player, pos_row, pos_col)
-                        game_ui.draw_x(pos_row, pos_col)
-                        if game.check_win():
-                            sys.exit()
-                        ai_player.make_move(game_ui.draw_circle(pos_row, pos_col), pos_row, pos_col)
+                    if game.check_for_space(pos_row, pos_col, game_board.grid):
+                        if human_turn == True:
+                            game.insert_letter('X', pos_row, pos_col, game_board.grid)
+                            game_ui.draw_x(pos_row, pos_col)
+                            human_turn = False
+                        else:
+                            game.insert_letter('O', pos_row, pos_col, game_board.grid)
+                            game_ui.draw_circle(pos_row, pos_col)
+                            human_turn = True
 
 
         game_ui.draw_game_board()
         game_ui.draw_new_game_button()
         pygame.display.update()
-    
-        print(game_board.print_grid())
+
 
 if __name__ == '__main__':
     main()
