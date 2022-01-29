@@ -1,16 +1,13 @@
-import pygame
 import sys
-from entities.ai_player import AiPlayer
+import pygame
 from services.game_board import GameBoard
 from services.game import Game
-from services.renderer import Renderer
 from ui.game_menu_ui import GameMenuUi
 
 
 def main():
     pygame.init()
     game = Game()
-    ai_player = AiPlayer()
     game_ui = GameMenuUi()
     game_board = GameBoard()
     human_turn = False
@@ -30,7 +27,7 @@ def main():
                         human_turn = False
                     if pos_col <= 19:
                         if game.check_for_space(pos_row, pos_col, game_board.grid):
-                            if human_turn == True:
+                            if human_turn is True:
                                 game.insert_letter('X', pos_row, pos_col, game_board.grid)
                                 game_ui.draw_x(pos_row, pos_col)
                                 human_turn = False

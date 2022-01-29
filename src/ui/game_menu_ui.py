@@ -61,16 +61,16 @@ class GameMenuUi:
 
     def draw_change_turn(self, turn, check_win):
         location = pygame.Rect(15, 620, 200, 25)
-        if turn == True:
+        if turn is True:
             pygame.draw.rect(self.window, (0, 0, 0), location)
             self.draw_whose_turn('YOUR TURN!')
-            if check_win == True:
+            if check_win is True:
                 pygame.draw.rect(self.window, (0, 0, 0), location)
                 self.draw_whose_turn('AI WON!')
 
-        if turn == False:
+        if turn is False:
             pygame.draw.rect(self.window, (0, 0, 0), location)
             self.draw_whose_turn('AI IS PLAYING!')
-            if check_win == True:
+            if check_win is True:
                 pygame.draw.rect(self.window, (0, 0, 0), location)
                 self.draw_whose_turn('YOU WON!')

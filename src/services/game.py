@@ -1,5 +1,3 @@
-from services.game_board import GameBoard
-
 
 class Game:
 
@@ -67,7 +65,7 @@ class Game:
         """
         for row in range(grid_size):
             for col in range(grid_size):
-                if col + 4 < grid_size and grid[row][col] != 0:
+                if col + 4 <= grid_size and grid[row][col] != 0:
                     if grid[row][col] == grid[row + 1][col] \
                         and grid[row + 1][col] == grid[row + 2][col] \
                             and grid[row + 2][col] == grid[row + 3][col] \
@@ -103,11 +101,12 @@ class Game:
             grid_size (int): a size of the game board.
 
         Returns:
-            (boolean): returns True if there is a  ascending diagonal win, else False."""
+            (boolean): returns True if there is a ascending diagonal win, else False.
+        """
 
         for row in range(grid_size):
             for col in range(grid_size):
-                if row + 4 < grid_size <= col - 4 and grid[row][col] != 0:
+                if row + 4 < grid_size and col - 4 < grid_size and grid[row][col] != 0:
                     if grid[row][col] == grid[row + 1][col - 1] \
                         and grid[row + 1][col - 1] == grid[row + 2][col - 2] \
                             and grid[row + 2][col - 2] == grid[row + 3][col - 3] \
@@ -116,6 +115,15 @@ class Game:
         return False
 
     def check_win(self, board, grid_size):
+        """A method that checks if a player has won the game.
+
+        Args:
+            board (matrix): the game board
+            grid_size (int): the grid size
+
+        Returns:
+            [boolean]: returns True if a player has won the game, else False
+        """
 
         if self.check_for_win_horizontal(board, grid_size):
             return True
@@ -126,4 +134,3 @@ class Game:
         if self.check_for_win_desc_diagonal(board, grid_size):
             return True
         return False
-

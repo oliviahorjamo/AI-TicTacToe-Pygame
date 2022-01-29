@@ -13,8 +13,8 @@ Date       | hours | target|
 Date       | hours | target|
 -----------|------|--------|
 25.1.2022 | 8  | Code the basics of the game (and pygame) functionalities. Start docstring for the code.  Start testing the methods|
-26.1.2022 | ?  | Continue basics of the game. Start minimax algorithm. Continue testing. |
-27.1.2022 | ?  | ? |
+28.1.2022 | 6  | Continue basics of the game.|
+27.1.2022 | 2  | Fix errors in the code and finish testing for Game and GameBoard classes. Do documenting and release for week 2.|
 
 
 ## Week 3
@@ -49,9 +49,9 @@ Date       | hours| target|
  Week   | Hours     |
 --------|----------|
  1      |    12   |
- 2      |       |
+ 2      |    16   |
  3      |        |
  4      |        |
  5      |        |
  6      |       |
-**Total** | **12**|
+**Total** | **28**|
