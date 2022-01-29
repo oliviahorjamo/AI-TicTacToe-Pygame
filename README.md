@@ -10,7 +10,7 @@ This program is tested with Python 3.8.10 version.
 
 ## Latest release
 
-You can find the latest release [here](https://github.com/riikkayoki/TicTacToe/releases/tag/week_1).
+You can find the latest release [here](https://github.com/riikkayoki/TicTacToe/releases/tag/week_2).
 
 
 ## Weekly reports
