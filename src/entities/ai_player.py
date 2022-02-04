@@ -11,47 +11,52 @@ class AiPlayer:
             col = cell[1]
             if board[row][col] == 0:
                 cells.append([row, col])
+            else:
+                continue
         return cells
 
-    def minimax(self, board, depth, ai_player, alpha, beta):
+    def min_alpha_beta(self, board, depth, alpha, beta):
+        best_value = math.inf
+        for cell in self.empty_cells(board):
+            row = cell[0]
+            col = cell[1]
+            board[row][col] = 1
+            value = self.max_alpha_beta(board, depth + 1, alpha, beta)
+            board[row][col] = 0
+            best_value = min(best_value, value)
+            beta = min(beta, value)
+            if beta <= alpha:
+                break
+        return best_value
 
+    def max_alpha_beta(self, board, depth, alpha, beta):
+        best_value = -math.inf
+        for cell in self.empty_cells(board):
+            row = cell[0]
+            col = cell[1]
+            board[row][col] = 2
+            value = self.min_alpha_beta(board, depth + 1, alpha, beta)
+            board[row][col] = 0
+            best_value = max(best_value, value)
+            alpha = max(alpha, best_value)
+            if beta <= alpha:
+                break
+        return best_value
+
+    def minimax(self, board, ai_player, depth, alpha, beta):
         if ai_player:
-            best_value = -math.inf
-            for cell in self.empty_cells(board):
-                row = cell[0]
-                col = cell[1]
-                board[row][col] = 2
-                value = self.minimax(board, depth + 1, False, alpha, beta)
-                board[row][col] = 0
-                best_value = max(best_value, value)
-                alpha = max(alpha, value)
-                if beta <= alpha:
-                    break
-            return best_value
-        else:
-            best_value = math.inf
-            for cell in self.empty_cells(board):
-                row = cell[0]
-                col = cell[1]
-                board[row][col] = 1
-                value = self.minimax(board, depth + 1, True, alpha, beta)
-                board[row][col] = 0
-                best_value = min(best_value, value)
-                beta = min(beta, best_value)
-                if beta <= alpha:
-                    break
-            return best_value
+            return self.max_alpha_beta(board, depth, alpha, beta)
+        return self.min_alpha_beta(board, depth, alpha, beta)
 
     def make_move(self, board):
-        max_value = math.inf
-        arvo = (0, 0)
-
-        for cell in board:
+        best_value = math.inf
+        coordinates = (0, 0)
+        for cell in self.empty_cells(board):
             row = cell[0]
             col = cell[1]
             if board[row][col] == 0:
-                value = self.minimax(board, 0, True, -math.inf, math.inf)
+                value = self.minimax(board, False, 0, -math.inf, math.inf)
                 board[row][col] == 2
-                if value < max_value:
-                    arvo = (row, col)
-        return arvo
+                if value <= best_value:
+                    coordinates = (row, col)
+        return coordinates
