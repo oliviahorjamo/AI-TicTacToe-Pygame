@@ -23,7 +23,7 @@ class Game:
             return True
         return False
 
-    def insert_letter(self, player, position_row, position_col, board):
+    def insert_letter(self, player, row, col, board):
         """A method to insert a letter to a given position on the gameboard.
 
         Args:
@@ -31,7 +31,7 @@ class Game:
             position_row (int): a row position to insert the letter.
             position_col (int): a column position to insert the letter.
         """
-        board[position_row][position_col] = player
+        board[row][col] = player
 
     def check_for_win_horizontal(self, grid, grid_size):
         """A method to check if there is a horizontal win.
@@ -132,5 +132,10 @@ class Game:
         if self.check_for_win_asc_diagonal(board, grid_size):
             return True
         if self.check_for_win_desc_diagonal(board, grid_size):
+            return True
+        return False
+
+    def check_for_tie(self, board):
+        if 0 not in board:
             return True
         return False

@@ -3,16 +3,16 @@ from services.renderer import Renderer
 from services.game_board import GameBoard
 
 class GameMenuUi:
-    def __init__(self):
+    def __init__(self, game_board):
         self.render = Renderer(600, 660, (0, 0, 0))
         self.window = self.render.window
         self.square_size = 30
         self.white = (250, 250, 250)
-        self.game_board = GameBoard()
+        self.game_board = game_board
 
     def draw_game_board(self):
-        for row in range(self.game_board.grid_size - 1):
-            for col in range(self.game_board.grid_size - 1):
+        for row in range(self.game_board.grid_size):
+            for col in range(self.game_board.grid_size):
                 rect = pygame.Rect(self.square_size * row,
                                     self.square_size * col,
                                     self.square_size, self.square_size)
@@ -59,18 +59,11 @@ class GameMenuUi:
         pygame.display.update()
         self.window.fill((0, 0, 0))
 
-    def draw_change_turn(self, turn, check_win):
+    def draw_change_turn(self, turn):
         location = pygame.Rect(15, 620, 200, 25)
-        if turn is True:
-            pygame.draw.rect(self.window, (0, 0, 0), location)
-            self.draw_whose_turn('YOUR TURN!')
-            if check_win is True:
-                pygame.draw.rect(self.window, (0, 0, 0), location)
-                self.draw_whose_turn('AI WON!')
-
         if turn is False:
             pygame.draw.rect(self.window, (0, 0, 0), location)
+            self.draw_whose_turn('YOUR TURN!')
+        if turn is True:
+            pygame.draw.rect(self.window, (0, 0, 0), location)
             self.draw_whose_turn('AI IS PLAYING!')
-            if check_win is True:
-                pygame.draw.rect(self.window, (0, 0, 0), location)
-                self.draw_whose_turn('YOU WON!')
