@@ -8,17 +8,19 @@ class TestGameBoard(unittest.TestCase):
         self.game = Game()
 
     def test_game_board(self):
-        self.assertEqual(self.game_board.grid, [[0 for _ in range(self.game_board.grid_size)]
-                                                for _ in range(self.game_board.grid_size)])
+        self.assertEqual(self.game_board.board, [[0 for _ in range(self.game_board.board_size)]
+                                                for _ in range(self.game_board.board_size)])
     def test_reset_game_board(self):
-        self.game.insert_letter('X', 0, 0, self.game_board.grid)
-        self.game.insert_letter('X', 0, 1, self.game_board.grid)
-        self.assertNotEqual(self.game_board.grid, [[0 for _ in range(self.game_board.grid_size)]
-                                                for _ in range(self.game_board.grid_size)])
+        self.game.insert_move('X', 0, 0, self.game_board.board)
+        self.game.insert_move('X', 0, 1, self.game_board.board)
+        self.assertNotEqual(self.game_board.board, [[0 for _ in range(self.game_board.board_size)]
+                                                for _ in range(self.game_board.board_size)])
         self.game_board.reset_game_board()
-        self.assertEqual(self.game_board.grid, [[0 for _ in range(self.game_board.grid_size)]
-                                                for _ in range(self.game_board.grid_size)])
-    def test_print_grid(self):
-        self.game_board.print_grid()
-        self.assertEqual(self.game_board.grid, [[0 for _ in range(self.game_board.grid_size)]
-                                                for _ in range(self.game_board.grid_size)])
+        self.assertNotEqual(self.game_board.board, [[0 for _ in range(self.game_board.board_size)]
+                                                for _ in range(self.game_board.board_size)])
+
+
+    def test_print_board(self):
+        self.game_board.print_game_board()
+        self.assertEqual(self.game_board.board, [[0 for _ in range(self.game_board.board_size)]
+                                                for _ in range(self.game_board.board_size)])

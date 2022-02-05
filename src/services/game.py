@@ -131,8 +131,3 @@ class Game:
         if self.check_for_win_desc_diagonal(board, board_size):
             return True
         return False
-
-    def check_for_tie(self, board):
-        if 0 not in board:
-            return True
-        return False
