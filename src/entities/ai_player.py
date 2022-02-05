@@ -1,62 +1,49 @@
-import math
 
 class AiPlayer:
-    def __init__(self, game):
+    def __init__(self, game_board, game):
+        self.game_board = game_board
         self.game = game
 
-    def empty_cells(self, board):
-        cells = []
-        for cell in board:
-            row = cell[0]
-            col = cell[1]
-            if board[row][col] == 0:
-                cells.append([row, col])
-            else:
-                continue
-        return cells
-
-    def min_alpha_beta(self, board, depth, alpha, beta):
-        best_value = math.inf
-        for cell in self.empty_cells(board):
-            row = cell[0]
-            col = cell[1]
-            board[row][col] = 1
-            value = self.max_alpha_beta(board, depth + 1, alpha, beta)
-            board[row][col] = 0
-            best_value = min(best_value, value)
-            beta = min(beta, value)
-            if beta <= alpha:
-                break
-        return best_value
-
-    def max_alpha_beta(self, board, depth, alpha, beta):
-        best_value = -math.inf
-        for cell in self.empty_cells(board):
-            row = cell[0]
-            col = cell[1]
-            board[row][col] = 2
-            value = self.min_alpha_beta(board, depth + 1, alpha, beta)
-            board[row][col] = 0
-            best_value = max(best_value, value)
-            alpha = max(alpha, best_value)
-            if beta <= alpha:
-                break
-        return best_value
-
-    def minimax(self, board, ai_player, depth, alpha, beta):
+    def minimax(self, board, depth, ai_player, alpha, beta):
         if ai_player:
-            return self.max_alpha_beta(board, depth, alpha, beta)
-        return self.min_alpha_beta(board, depth, alpha, beta)
+            best_value = -1000
+            for cell in board:
+                row = cell[0]
+                col = cell[1]
+                if self.game.check_for_space(row, col, board):
+                    self.game.insert_move(2, row, col, board)
+                    value = self.minimax(board, depth + 1, False, alpha, beta)
+                    self.game.insert_move(0, row, col, board)
+                    best_value = max(best_value, value)
+                    alpha = max(alpha, value)
+                    if beta <= alpha:
+                        break
+            return best_value
+        else:
+            best_value = 1000
+            for cell in board:
+                row = cell[0]
+                col = cell[1]
+                if self.game.check_for_space(row, col, board):
+                    self.game.insert_move(1, row, col, board)
+                    value = self.minimax(board, depth + 1, True, alpha, beta)
+                    self.game.insert_move(0, row, col, board)
+                    best_value = min(best_value, value)
+                    beta = min(beta, best_value)
+                    if beta <= alpha:
+                        break
+            return best_value
 
-    def make_move(self, board):
-        best_value = math.inf
+    def make_move(self):
+        best_value = 1000
         coordinates = (0, 0)
-        for cell in self.empty_cells(board):
+        for cell in self.game_board.board:
             row = cell[0]
             col = cell[1]
-            if board[row][col] == 0:
-                value = self.minimax(board, False, 0, -math.inf, math.inf)
-                board[row][col] == 2
-                if value <= best_value:
+            if self.game.check_for_space(row, col, self.game_board.board):
+                self.game.insert_move(2, row, col, self.game_board.board)
+                value = self.minimax(self.game_board.board, 0, True, -1000, 1000)
+                if value < best_value:
                     coordinates = (row, col)
+                    best_value = value
         return coordinates

@@ -22,7 +22,8 @@ Date       | hours | target|
 Date       | hours | target|
 -----------|------|--------|
 3.2.2022 | 8 | Start coding the minimax algorithm with Alpha-Beta pruning. No commits|
-4.2.2022 | 5 | Try to fix error with the game board (it shows rows and columns wrong way.). Study more minimax + alpha-beta pruning.|
+4.2.2022 | 5 | Trying to fix error with the game board (it shows rows and columns wrong way.). Study more minimax + alpha-beta pruning.|
+4.2.2022 | 6 | Figuring out a tactic for better winning check|
 
 
 ## Week 4
@@ -51,8 +52,8 @@ Date       | hours| target|
 --------|----------|
  1      |    12   |
  2      |    16   |
- 3      |       |
+ 3      |    19  |
  4      |        |
  5      |        |
  6      |       |
-**Total** | **28**|
+**Total** | **47**|

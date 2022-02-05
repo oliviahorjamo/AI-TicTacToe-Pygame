@@ -11,8 +11,8 @@ class GameMenuUi:
         self.game_board = game_board
 
     def draw_game_board(self):
-        for row in range(self.game_board.grid_size):
-            for col in range(self.game_board.grid_size):
+        for row in range(self.game_board.board_size):
+            for col in range(self.game_board.board_size):
                 rect = pygame.Rect(self.square_size * row,
                                     self.square_size * col,
                                     self.square_size, self.square_size)

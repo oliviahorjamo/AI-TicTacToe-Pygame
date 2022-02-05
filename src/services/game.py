@@ -23,7 +23,7 @@ class Game:
             return True
         return False
 
-    def insert_letter(self, player, row, col, board):
+    def insert_move(self, player, row, col, board):
         """A method to insert a letter to a given position on the gameboard.
 
         Args:
@@ -33,105 +33,102 @@ class Game:
         """
         board[row][col] = player
 
-    def check_for_win_horizontal(self, grid, grid_size):
+
+    def check_for_win_horizontal(self, board, board_size):
         """A method to check if there is a horizontal win.
-
         Args:
-            grid (matrix): game board.
-            grid_size (int): a size of the game board.
-
+            board (matrix): game board.
+            board_size (int): a size of the game board.
         Returns:
             (boolean): returns True if there is a horizontal win, else False.
         """
-        for row in range(grid_size):
-            for col in range(grid_size):
-                if row + 4 < grid_size and grid[row][col] != 0:
-                    if grid[row][col] == grid[row][col + 1] \
-                        and grid[row][col + 1] == grid[row][col + 2] \
-                            and grid[row][col + 2] == grid[row][col + 3] \
-                                and grid[row][col + 3] == grid[row][col + 4]:
+        for row in range(board_size):
+            for col in range(board_size):
+                if 0 <= col < 14 and board[row][col] != 0:
+                    if board[row][col] == board[row][col + 1] \
+                        and board[row][col + 1] == board[row][col + 2] \
+                            and board[row][col + 2] == board[row][col + 3] \
+                                and board[row][col + 3] == board[row][col + 4]:
+                        return True
+                if 19 >= col > 4 and board[row][col] != 0:
+                    if board[row][col] == board[row][col - 1] \
+                        and board[row][col - 1] == board[row][col - 2] \
+                            and board[row][col - 2] == board[row][col - 3] \
+                                and board[row][col - 3] == board[row][col - 4]:
                         return True
         return False
 
-    def check_for_win_vertical(self, grid, grid_size):
+    def check_for_win_vertical(self, board, board_size):
         """A method to check if there is a vertical win.
-
         Args:
-            grid (matrix): game board.
-            grid_size (int): a size of the game board.
-
+            board (matrix): game board.
+            board_size (int): a size of the game board.
         Returns:
             (boolean): returns True if there is a vertical win, else False.
         """
-        for row in range(grid_size):
-            for col in range(grid_size):
-                if col + 4 <= grid_size and grid[row][col] != 0:
-                    if grid[row][col] == grid[row + 1][col] \
-                        and grid[row + 1][col] == grid[row + 2][col] \
-                            and grid[row + 2][col] == grid[row + 3][col] \
-                                and grid[row + 3][col] == grid[row + 4][col]:
+        for row in range(board_size):
+            for col in range(board_size):
+                if col + 4 <= board_size and board[row][col] != 0:
+                    if board[row][col] == board[row + 1][col] \
+                        and board[row + 1][col] == board[row + 2][col] \
+                            and board[row + 2][col] == board[row + 3][col] \
+                                and board[row + 3][col] == board[row + 4][col]:
                         return True
         return False
 
-    def check_for_win_desc_diagonal(self, grid, grid_size):
+    def check_for_win_desc_diagonal(self, board, board_size):
         """A method to check if there is a descending diagonal win.
-
         Args:
-            grid (matrix): game board.
-            grid_size (int): a size of the game board.
-
+            board (matrix): game board.
+            board_size (int): a size of the game board.
         Returns:
             (boolean): returns True if there is a  descending diagonal win, else False.
         """
-        for row in range(grid_size):
-            for col in range(grid_size):
-                if row + 4 < grid_size and col + 4 < grid_size and grid[row][col] != 0:
-                    if grid[row][col] == grid[row + 1][col + 1] \
-                        and grid[row + 1][col + 1] == grid[row + 2][col + 2] \
-                            and grid[row + 2][col + 2] == grid[row + 3][col + 3] \
-                                and grid[row + 3][col + 3] == grid[row + 4][col + 4]:
+        for row in range(board_size):
+            for col in range(board_size):
+                if row + 4 < board_size and col + 4 < board_size and board[row][col] != 0:
+                    if board[row][col] == board[row + 1][col + 1] \
+                        and board[row + 1][col + 1] == board[row + 2][col + 2] \
+                            and board[row + 2][col + 2] == board[row + 3][col + 3] \
+                                and board[row + 3][col + 3] == board[row + 4][col + 4]:
                         return True
         return False
 
-    def check_for_win_asc_diagonal(self, grid, grid_size):
+    def check_for_win_asc_diagonal(self, board, board_size):
         """A method to check if there is a ascending diagonal win.
-
         Args:
-            grid (matrix): game board.
-            grid_size (int): a size of the game board.
-
+            board (matrix): game board.
+            board_size (int): a size of the game board.
         Returns:
             (boolean): returns True if there is a ascending diagonal win, else False.
         """
 
-        for row in range(grid_size):
-            for col in range(grid_size):
-                if row + 4 < grid_size and col - 4 < grid_size and grid[row][col] != 0:
-                    if grid[row][col] == grid[row + 1][col - 1] \
-                        and grid[row + 1][col - 1] == grid[row + 2][col - 2] \
-                            and grid[row + 2][col - 2] == grid[row + 3][col - 3] \
-                                and grid[row + 3][col - 3] == grid[row + 4][col - 4]:
+        for row in range(board_size):
+            for col in range(board_size):
+                if row + 4 < board_size and col - 4 < board_size and board[row][col] != 0:
+                    if board[row][col] == board[row + 1][col - 1] \
+                        and board[row + 1][col - 1] == board[row + 2][col - 2] \
+                            and board[row + 2][col - 2] == board[row + 3][col - 3] \
+                                and board[row + 3][col - 3] == board[row + 4][col - 4]:
                         return True
         return False
 
-    def check_win(self, board, grid_size):
+    def check_win(self, board, board_size):
         """A method that checks if a player has won the game.
-
         Args:
             board (matrix): the game board
-            grid_size (int): the grid size
-
+            board_size (int): the board size
         Returns:
             [boolean]: returns True if a player has won the game, else False
         """
 
-        if self.check_for_win_horizontal(board, grid_size):
+        if self.check_for_win_horizontal(board, board_size):
             return True
-        if self.check_for_win_vertical(board, grid_size):
+        if self.check_for_win_vertical(board, board_size):
             return True
-        if self.check_for_win_asc_diagonal(board, grid_size):
+        if self.check_for_win_asc_diagonal(board, board_size):
             return True
-        if self.check_for_win_desc_diagonal(board, grid_size):
+        if self.check_for_win_desc_diagonal(board, board_size):
             return True
         return False
 
