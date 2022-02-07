@@ -113,7 +113,7 @@ class Game:
                         return True
         return False
 
-    def check_win(self, board, board_size):
+    def check_for_win(self, board, board_size):
         """A method that checks if a player has won the game.
         Args:
             board (matrix): the game board
@@ -126,8 +126,15 @@ class Game:
             return True
         if self.check_for_win_vertical(board, board_size):
             return True
-        if self.check_for_win_asc_diagonal(board, board_size):
-            return True
-        if self.check_for_win_desc_diagonal(board, board_size):
-            return True
+        #if self.check_for_win_asc_diagonal(board, board_size):
+            #return True
+        #if self.check_for_win_desc_diagonal(board, board_size):
+            #return True
         return False
+
+    def check_for_tie(self, board):
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                if board[row][col] == 0:
+                    return False
+        return True

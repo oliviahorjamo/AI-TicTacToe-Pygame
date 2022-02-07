@@ -22,10 +22,11 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
             if ai_turn is True:
-                coordinates = ai_player.make_move()
-                game_ui.draw_circle(coordinates[0], coordinates[1])
-                if game.check_win(game_board.board, game_board.board_size):
-                    print('ai won')
+                pos = ai_player.make_move()
+                game.insert_move(2, pos[0], pos[1], game_board.board)
+                game_ui.draw_circle(pos[0], pos[1])
+                if game.check_for_win(game_board.board, game_board.board_size):
+                    sys.exit()
                 ai_turn = False
             if ai_turn is False:
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -33,17 +34,20 @@ def main():
                         pos_row = event.pos[0] // game_ui.square_size
                         pos_col = event.pos[1] // game_ui.square_size
                         if pos_col <= 19:
-                            human_player.make_move(pos_row, pos_col)
-                            game_ui.draw_x(pos_row, pos_col)
-                            print(pos_row, pos_col)
-                            if game.check_win(game_board.board, game_board.board_size):
+                            if game.check_for_space(pos_row, pos_col, game_board.board):
+                                human_player.make_move(pos_row, pos_col)
+                                game_ui.draw_x(pos_row, pos_col)
+                            if game.check_for_win(game_board.board, game_board.board_size):
                                 sys.exit()
                             else:
                                 ai_turn = True
-                    if pygame.mouse.get_pressed():
                         if game_ui.new_game(pygame.mouse.get_pos()):
                             game_board.reset_game_board()
                             game_ui.reset_game_board()
+
+        if game.check_for_tie(game_board.board):
+            game_board.reset_game_board()
+            game_ui.reset_game_board()
         game_ui.draw_change_turn(ai_turn)
         game_ui.draw_game_board()
         game_ui.draw_new_game_button()

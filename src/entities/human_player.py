@@ -6,5 +6,4 @@ class HumanPlayer:
         self.game = game
 
     def make_move(self, pos_row, pos_col):
-        if self.game.check_for_space(pos_row, pos_col, self.game_board.board):
-            self.game.insert_move(1, pos_row, pos_col, self.game_board.board)
+        self.game.insert_move(1, pos_row, pos_col, self.game_board.board)
