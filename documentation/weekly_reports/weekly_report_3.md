@@ -7,6 +7,7 @@
 * Coding the minimax algorithm with alpha beta pruning.
 * Trying to solve why row and columns are wrong way in the game board.
 * Trying to solve how to make the winning check better
+* Testing the code.
 
 A lot of my time went to trying to fix the code and finding solutions to make the winning check better. I was quite a stuck in finding better solutions, so I did not succeed to go forward in the project as much as I would have wanted to.
 
