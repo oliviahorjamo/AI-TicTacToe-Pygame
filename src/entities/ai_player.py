@@ -7,6 +7,31 @@ class AiPlayer:
 
     def minimax(self, node, depth, alpha, beta, maximizingPlayer):
 
+        """Pseudocode: https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+        function alphabeta(node, depth, α, β, maximizingPlayer) is
+            if depth = 0 or node is a terminal node then
+                return the heuristic value of node
+            if maximizingPlayer then
+                value := −∞
+                for each child of node do
+                    value := max(value, alphabeta(child, depth − 1, α, β, FALSE))
+                    α := max(α, value)
+                    if value ≥ β then
+                        break (* β cutoff *)
+                return value
+            else
+                value := +∞
+                for each child of node do
+                    value := min(value, alphabeta(child, depth − 1, α, β, TRUE))
+                    β := min(β, value)
+                    if value ≤ α then
+                        break (* α cutoff *)
+                return value
+
+        (* Initial call *)
+        alphabeta(origin, depth, −∞, +∞, TRUE)
+        """
+
         if depth == 0 or self.game.check_for_win(self.game_board.board, self.game_board.board_size):
             return 0
 
@@ -39,15 +64,14 @@ class AiPlayer:
     def find_best_move(self):
         best_value = math.inf
         best_move = (0, 0)
-        for row in range(len(self.game_board.board)):
-            for col in range(len(self.game_board.board)):
+        for row in range(self.game_board.board_size):
+            for col in range(self.game_board.board_size):
                 node = (row, col)
                 if self.game.check_for_space(row, col, self.game_board.board):
                     self.game.insert_move(2, row, col, self.game_board.board)
-                    value = self.minimax(node, 3, -math.inf, math.inf, True)
+                    value = self.minimax(node, 0, -math.inf, math.inf, True)
                     self.game.insert_move(0, row, col, self.game_board.board)
                     if value < best_value:
                         best_move = (row, col)
                         best_value = value
         return best_move
-
