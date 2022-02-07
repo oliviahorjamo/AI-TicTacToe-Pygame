@@ -22,12 +22,14 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
             if ai_turn is True:
-                pos = ai_player.make_move()
+                pos = ai_player.find_best_move()
+                print(ai_player.find_best_move())
                 game.insert_move(2, pos[0], pos[1], game_board.board)
                 game_ui.draw_circle(pos[0], pos[1])
                 if game.check_for_win(game_board.board, game_board.board_size):
                     sys.exit()
-                ai_turn = False
+                else:
+                    ai_turn = False
             if ai_turn is False:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pressed():
@@ -37,17 +39,9 @@ def main():
                             if game.check_for_space(pos_row, pos_col, game_board.board):
                                 human_player.make_move(pos_row, pos_col)
                                 game_ui.draw_x(pos_row, pos_col)
-                            if game.check_for_win(game_board.board, game_board.board_size):
-                                sys.exit()
-                            else:
+                                if game.check_for_win(game_board.board, game_board.board_size):
+                                    sys.exit()
                                 ai_turn = True
-                        if game_ui.new_game(pygame.mouse.get_pos()):
-                            game_board.reset_game_board()
-                            game_ui.reset_game_board()
-
-        if game.check_for_tie(game_board.board):
-            game_board.reset_game_board()
-            game_ui.reset_game_board()
         game_ui.draw_change_turn(ai_turn)
         game_ui.draw_game_board()
         game_ui.draw_new_game_button()

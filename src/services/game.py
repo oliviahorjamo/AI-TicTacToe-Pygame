@@ -124,12 +124,12 @@ class Game:
 
         if self.check_for_win_horizontal(board, board_size):
             return True
-        if self.check_for_win_vertical(board, board_size):
-            return True
+        #if self.check_for_win_vertical(board, board_size):
+            #return True
         #if self.check_for_win_asc_diagonal(board, board_size):
-            #return True
+        #    return True
         #if self.check_for_win_desc_diagonal(board, board_size):
-            #return True
+        #    return True
         return False
 
     def check_for_tie(self, board):
