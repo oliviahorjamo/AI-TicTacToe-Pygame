@@ -32,17 +32,24 @@ class AiPlayer:
         alphabeta(origin, depth, −∞, +∞, TRUE)
         """
 
-        if depth == 0 or self.game.check_for_win(self.game_board.board, self.game_board.board_size):
+        if depth == 0:
             return 0
+
+        if self.game.check_for_win(self.game_board.board, self.game_board.board_size):
+            if maximizingPlayer:
+                return -math.inf
+            return math.inf
 
         if maximizingPlayer:
             value = -math.inf
 
             for node in self.game_board.board:
-                if self.game.check_for_space(node[0], node[1], self.game_board.board):
-                    self.game.insert_move(2, node[0], node[1], self.game_board.board)
+                row = node[0]
+                col = node[1]
+                if self.game_board.board[row][col] == 0:
+                    self.game_board.board[row][col] = 2
                     value = max(value, self.minimax(node, depth - 1, alpha, beta, False))
-                    self.game.insert_move(0, node[0], node[1], self.game_board.board)
+                    self.game_board.board[row][col] = 0
                     alpha = max(alpha, value)
                     if value >= beta:
                         break
@@ -51,25 +58,26 @@ class AiPlayer:
         else:
             value = math.inf
             for node in self.game_board.board:
-                if self.game.check_for_space(node[0], node[1], self.game_board.board):
-                    self.game.insert_move(1, node[0], node[1], self.game_board.board)
+                row = node[0]
+                col = node[1]
+                if self.game_board.board[row][col] == 0:
+                    self.game_board.board[row][col] = 1
                     value = min(value, self.minimax(node, depth - 1, alpha, beta, True))
-                    self.game.insert_move(0, node[0], node[1], self.game_board.board)
-                    alpha = max(alpha, value)
+                    self.game_board.board[row][col] = 0
+                    beta = min(beta, value)
                     if value <= alpha:
                         break
-                    beta = min(beta, value)
             return value
 
     def find_best_move(self):
         best_value = math.inf
         best_move = (0, 0)
-        for row in range(self.game_board.board_size):
-            for col in range(self.game_board.board_size):
-                node = (row, col)
+        for row in range(len(self.game_board.board)):
+            for col in range(len(self.game_board.board)):
                 if self.game.check_for_space(row, col, self.game_board.board):
                     self.game.insert_move(2, row, col, self.game_board.board)
-                    value = self.minimax(node, 0, -math.inf, math.inf, True)
+                    value = self.minimax(self.game_board.board, 10, -math.inf, math.inf, True)
+                    print(self.game_board.print_game_board())
                     self.game.insert_move(0, row, col, self.game_board.board)
                     if value < best_value:
                         best_move = (row, col)

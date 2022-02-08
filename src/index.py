@@ -26,6 +26,7 @@ def main():
                 print(ai_player.find_best_move())
                 game.insert_move(2, pos[0], pos[1], game_board.board)
                 game_ui.draw_circle(pos[0], pos[1])
+                print(pos)
                 if game.check_for_win(game_board.board, game_board.board_size):
                     sys.exit()
                 else:
