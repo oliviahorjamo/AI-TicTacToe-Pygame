@@ -44,9 +44,9 @@ class Game:
                 if row + 4 < board_size \
                     and board[row][col] == player \
                         and board[row + 1][col] == player \
-                            and board[row + 2][col] == player:
-                               # and board[row + 3][col] == player \
-                                    #and board[row + 4][col] == player:
+                            and board[row + 2][col] == player \
+                               and board[row + 3][col] == player \
+                                    and board[row + 4][col] == player:
                     return True
         return False
 
@@ -58,9 +58,9 @@ class Game:
                 if col + 4 < board_size \
                     and board[row][col] == player \
                         and board[row][col + 1] == player \
-                            and board[row][col + 2] == player:
-                                #and board[row][col + 3] == player \
-                                   # and board[row][col + 4] == player:
+                            and board[row][col + 2] == player \
+                                and board[row][col + 3] == player \
+                                    and board[row][col + 4] == player:
                     return True
         return False
 
@@ -72,21 +72,13 @@ class Game:
                 if row + 4 < board_size and col - 4 >= 0 \
                     and board[row][col] == player \
                         and board[row + 1][col - 1] == player \
-                            and board[row + 2][col - 2] == player:
-                                #and board[row + 3][col- 3] == player \
-                                    #and board[row + 4][col - 4] == player:
+                            and board[row + 2][col - 2] == player \
+                                and board[row + 3][col- 3] == player \
+                                    and board[row + 4][col - 4] == player:
                     return True
         return False
 
     def check_for_win_asc_diagonal(self, board, player):
-        """A method to check if there is a ascending diagonal win.
-        Args:
-            board (matrix): game board.
-            board_size (int): a size of the game board.
-        Returns:
-            (boolean): returns True if there is a ascending diagonal win, else False.
-        """
-
         board_size = len(board)
 
         for row in range(board_size):
@@ -157,7 +149,7 @@ class AiPlayer:
         if score == -10: # minimazer has won
             return score
 
-        if self.isMovesLeft(board) == False: # tie / no moves left
+        if depth == 0: # tie / no moves left
             return 0
 
         if maximizingPlayer:
@@ -195,7 +187,7 @@ class AiPlayer:
             for col in range(board_size):
                 if board[row][col] == 0:
                     board[row][col] = player
-                    checked_value = self.minimax(board, 0, -1000, 1000,True)
+                    checked_value = self.minimax(board, 1, -1000, 1000, True)
                     print(board)
                     print(checked_value)
                     board[row][col] = 0
@@ -209,9 +201,11 @@ class AiPlayer:
 
 if __name__ == '__main__':
     board = [
-        [ 0, 0, 0 ],
-        [ 0, 2, 0 ],
-        [ 0, 1, 1 ]
+        [ 2, 2, 0, 0, 0 ],
+        [ 2, 2, 2, 0, 2 ],
+        [ 0, 1, 1, 1, 1 ],
+        [ 0, 1, 1, 0, 0 ],
+        [ 0, 0, 0, 2, 1 ]
     ]
     ai = AiPlayer()
 
