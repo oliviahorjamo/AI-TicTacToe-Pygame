@@ -1,85 +1,220 @@
 import math
 
-class AiPlayer:
-    def __init__(self, game_board, game):
-        self.game_board = game_board
-        self.game = game
 
-    def minimax(self, node, depth, alpha, beta, maximizingPlayer):
+class Game:
 
-        """Pseudocode: https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
-        function alphabeta(node, depth, α, β, maximizingPlayer) is
-            if depth = 0 or node is a terminal node then
-                return the heuristic value of node
-            if maximizingPlayer then
-                value := −∞
-                for each child of node do
-                    value := max(value, alphabeta(child, depth − 1, α, β, FALSE))
-                    α := max(α, value)
-                    if value ≥ β then
-                        break (* β cutoff *)
-                return value
-            else
-                value := +∞
-                for each child of node do
-                    value := min(value, alphabeta(child, depth − 1, α, β, TRUE))
-                    β := min(β, value)
-                    if value ≤ α then
-                        break (* α cutoff *)
-                return value
+    """A class that represents the game functionalities.
 
-        (* Initial call *)
-        alphabeta(origin, depth, −∞, +∞, TRUE)
+    Attributes:
+                game_board: An object that imports the game board methods."""
+
+    def __init__(self):
+        """A constructor of the class that initializes the game functionalities."""
+
+    def check_for_space(self, row, col, board):
+        """A method that checks whether the player can insert letter to the game board.
+
+        Args:
+            row (index): row position on the game board.
+            col (index): col position on the game board.
+
+        Returns:
+            (boolean): returns True if the index of the game board is 0, else False.
+        """
+        if board[row][col] == 0:
+            return True
+        return False
+
+    def insert_move(self, player, row, col, board):
+        """A method to insert a letter to a given position on the gameboard.
+
+        Args:
+            player (str): letter of the player to be inserted.
+            position_row (int): a row position to insert the letter.
+            position_col (int): a column position to insert the letter.
+        """
+        board[row][col] = player
+
+
+    def check_for_win_horizontal(self, board, player):
+        board_size = len(board)
+
+        for row in range(board_size):
+            for col in range(board_size):
+                if row + 4 < board_size \
+                    and board[row][col] == player \
+                        and board[row + 1][col] == player \
+                            and board[row + 2][col] == player:
+                               # and board[row + 3][col] == player \
+                                    #and board[row + 4][col] == player:
+                    return True
+        return False
+
+    def check_for_win_vertical(self, board, player):
+        board_size = len(board)
+
+        for row in range(board_size):
+            for col in range(board_size):
+                if col + 4 < board_size \
+                    and board[row][col] == player \
+                        and board[row][col + 1] == player \
+                            and board[row][col + 2] == player:
+                                #and board[row][col + 3] == player \
+                                   # and board[row][col + 4] == player:
+                    return True
+        return False
+
+    def check_for_win_desc_diagonal(self, board, player):
+        board_size = len(board)
+
+        for row in range(board_size):
+            for col in range(board_size):
+                if row + 4 < board_size and col - 4 >= 0 \
+                    and board[row][col] == player \
+                        and board[row + 1][col - 1] == player \
+                            and board[row + 2][col - 2] == player:
+                                #and board[row + 3][col- 3] == player \
+                                    #and board[row + 4][col - 4] == player:
+                    return True
+        return False
+
+    def check_for_win_asc_diagonal(self, board, player):
+        """A method to check if there is a ascending diagonal win.
+        Args:
+            board (matrix): game board.
+            board_size (int): a size of the game board.
+        Returns:
+            (boolean): returns True if there is a ascending diagonal win, else False.
         """
 
-        if depth == 0:
+        board_size = len(board)
+
+        for row in range(board_size):
+            for col in range(board_size):
+                if row + 4 < board_size and col + 4 < board_size \
+                    and board[row][col] == player \
+                        and board[row + 1][col + 1] == player \
+                            and board[row + 2][col + 2] == player \
+                                and board[row + 3][col + 3] == player \
+                                    and board[row + 4][col + 4] == player:
+                    return True
+        return False
+
+    def check_for_win(self, board, player):
+        """A method that checks if a player has won the game.
+        Args:
+            board (matrix): the game board
+            board_size (int): the board size
+        Returns:
+            [boolean]: returns True if a player has won the game, else False
+        """
+
+        if self.check_for_win_horizontal(board, player):
+            return True
+        if self.check_for_win_vertical(board, player):
+            return True
+        if self.check_for_win_asc_diagonal(board, player):
+            return True
+        if self.check_for_win_desc_diagonal(board, player):
+            return True
+        return False
+
+    def check_for_tie(self, board):
+        for row in range(len(board)):
+            for col in range(len(board)):
+                if board[row][col] == 0:
+                    return False
+        return True
+
+
+class AiPlayer:
+    def __init__(self):
+        self.ai = 2
+        self.human = 1
+        self.game = Game()
+
+    def evaluate(self, board):
+        if self.game.check_for_win(board, self.ai):
+            return 10
+        if self.game.check_for_win(board, self.human):
+            return -10
+        return 0
+
+    def isMovesLeft(self,board):
+        board_size = len(board)
+        for i in range(board_size):
+            for j in range(board_size) :
+                if board[i][j] == 0:
+                    return True
+        return False
+
+    def minimax(self, board, depth, alpha, beta, maximizingPlayer):
+        board_size = len(board)
+        score = self.evaluate(board)
+
+        if score == 10: # maximazer has won
+            return score
+        if score == -10: # minimazer has won
+            return score
+
+        if self.isMovesLeft(board) == False: # tie / no moves left
             return 0
 
-        if self.game.check_for_win(self.game_board.board, self.game_board.board_size):
-            if maximizingPlayer:
-                return -math.inf
-            return math.inf
-
         if maximizingPlayer:
-            value = -math.inf
+            value = -1000
 
-            for node in self.game_board.board:
-                row = node[0]
-                col = node[1]
-                if self.game_board.board[row][col] == 0:
-                    self.game_board.board[row][col] = 2
-                    value = max(value, self.minimax(node, depth - 1, alpha, beta, False))
-                    self.game_board.board[row][col] = 0
-                    alpha = max(alpha, value)
-                    if value >= beta:
-                        break
+            for row in range(board_size):
+                for col in range(board_size):
+                    if board[row][col] == 0:
+                        board[row][col] = 2
+                        value = max(value, self.minimax(board, depth - 1, alpha, beta, False))
+                        board[row][col] = 0
+                        alpha = max(alpha, value)
+                        if value >= beta:
+                            break
             return value
 
         else:
-            value = math.inf
-            for node in self.game_board.board:
-                row = node[0]
-                col = node[1]
-                if self.game_board.board[row][col] == 0:
-                    self.game_board.board[row][col] = 1
-                    value = min(value, self.minimax(node, depth - 1, alpha, beta, True))
-                    self.game_board.board[row][col] = 0
-                    beta = min(beta, value)
-                    if value <= alpha:
-                        break
+            value = 1000
+            for row in range(board_size):
+                for col in range(board_size):
+                    if board[row][col] == 0:
+                        board[row][col] = 1
+                        value = min(value, self.minimax(board, depth - 1, alpha, beta, True))
+                        board[row][col] = 0
+                        beta = min(beta, value)
+                        if value <= alpha:
+                            break
             return value
 
-    def find_best_move(self):
-        best_value = math.inf
+    def find_best_move(self, player, board):
+        board_size = len(board)
+        best_value = -1000
         best_move = (0, 0)
-        for row in range(len(self.game_board.board)):
-            for col in range(len(self.game_board.board)):
-                if self.game.check_for_space(row, col, self.game_board.board):
-                    self.game.insert_move(2, row, col, self.game_board.board)
-                    value = self.minimax(self.game_board.board, 10, -math.inf, math.inf, True)
-                    print(self.game_board.print_game_board())
-                    self.game.insert_move(0, row, col, self.game_board.board)
-                    if value < best_value:
+        for row in range(board_size):
+            for col in range(board_size):
+                if board[row][col] == 0:
+                    board[row][col] = player
+                    checked_value = self.minimax(board, 0, -1000, 1000,True)
+                    print(board)
+                    print(checked_value)
+                    board[row][col] = 0
+
+                    if (checked_value >= best_value):
                         best_move = (row, col)
-                        best_value = value
+                        best_value = checked_value
+        print("The value of the best Move is :", best_value)
+        print()
         return best_move
+
+if __name__ == '__main__':
+    board = [
+        [ 0, 0, 0 ],
+        [ 0, 2, 0 ],
+        [ 0, 1, 1 ]
+    ]
+    ai = AiPlayer()
+
+    best_move = ai.find_best_move(2, board)
+    print("The Optimal Move is :")
+    print("ROW:", best_move[0], " COL:", best_move[1])
