@@ -34,7 +34,7 @@ Date       | hours | target|
 7.2.2022 | 8  | debugging the algorithm and doing research on minimax + alpha-beta pruning. |
 6.2.2022 | 4  | debugging the algorithm and doing research on minimax + alpha-beta pruning. |
 9.2.2022 | 7  | debugging the algorithm and the game board.  |
-9.2.2022 | ?  | debugging the ui and testing the algorithm.  |
+10.2.2022 | 8  | debugging the minimax.  |
 
 
 
@@ -58,7 +58,7 @@ Date       | hours| target|
  1      |    12   |
  2      |    16   |
  3      |    19  |
- 4      |        |
+ 4      |     35   |
  5      |        |
  6      |       |
-**Total** | **47**|
+**Total** | **82**|
