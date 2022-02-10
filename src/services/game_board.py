@@ -19,7 +19,4 @@ class GameBoard:
         """A method that resets the game board"""
         self.grid = [[0 for _ in range(self.board_size)] for _ in range(self.board_size)]
 
-g = GameBoard()
-print(g.board)
-
 

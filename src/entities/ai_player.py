@@ -6,15 +6,6 @@ class AiPlayer:
         self.game_board = game_board
         self.board = game_board.board
 
-    def evaluate(self, board):
-        if self.game.check_for_win(board, 2):
-            return 1000
-        if self.game.check_for_win(board, 1):
-            return -1000
-        if self.game.check_for_tie(board):
-            return -1000
-
-
     def empty_cells(self,board):
         board_size = len(board)
         cells = []
@@ -24,15 +15,17 @@ class AiPlayer:
                     cells.append([i, j])
         return cells
 
+
     def minimax(self, node, depth, alpha, beta, maximizingPlayer):
         board_size = len(self.board)
         board = self.board
-        score = self.evaluate(self.board)
 
-        if score == 1000: # maximazer has won
+        if self.game.check_for_win(board, 2):
             return 1000
-        if score == -1000: # minimazer has won
+        if self.game.check_for_win(board, 1):
             return -1000
+        if len(self.game.check_for_tie(board)) == 0:
+            return 0
         if depth == 0:
             return 0
 
@@ -49,7 +42,7 @@ class AiPlayer:
                         alpha = max(alpha, value)
                         if value >= beta:
                             break
-            return value
+            return value - depth
 
         else:
             value = 1000
@@ -58,27 +51,27 @@ class AiPlayer:
                     if board[row][col] == 0:
                         node = (row, col)
                         board[row][col] = 1
-                        value = min(value, self.minimax(node, depth - 1, alpha, beta, True))
+                        value = min(value, self.minimax(node, depth - 1, alpha, beta, False))
                         board[row][col] = 0
                         beta = min(beta, value)
-                        if value < alpha:
+                        if value <= alpha:
                             break
-            return value
+            return value + depth
 
     def find_best_move(self, board):
         board_size = len(board)
-        best_value = 1000
-        best_move = (0, 0)
+        best_value = -1000
+        best_move = (-1, -1)
         for row in range(board_size):
             for col in range(board_size):
                 if board[row][col] == 0:
                     board[row][col] = 2
                     node = (row, col)
-                    checked_value = self.minimax(node, 3, -1000, 1000, True)
+                    checked_value = self.minimax(node, 3, -1000, 1000, False)
                     print(board)
                     print(checked_value)
                     board[row][col] = 0
-                    if checked_value <= best_value:
+                    if checked_value >= best_value:
                         best_move = (row, col)
                         best_value = checked_value
         print("The value of the best Move is :", best_value)

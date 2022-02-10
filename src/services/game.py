@@ -37,12 +37,34 @@ class Game:
 
 
     def check_for_tie(self, board):
+        cells = []
         for row in range(len(board)):
             for col in range(len(board)):
-                if board[row][col] == 0:
-                    return False
-        return True
+                if board[row][col] != 0:
+                    cells.append([row, col])
+        return cells
 
+
+    def check_win(self, board, player):
+	# vertical win check
+        for col in range(3):
+            if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+                return True
+
+        # horizontal win check
+        for row in range(3):
+            if board[row][0] == player and board[row][1] == player and board[row][2] == player:
+                return True
+
+        # asc diagonal win check
+        if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+            return True
+
+        # desc diagonal win chek
+        if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+            return True
+
+        return False 
     def check_for_win(self, board, player):
 
         for col in range(len(board)):
