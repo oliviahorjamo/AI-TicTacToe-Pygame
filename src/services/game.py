@@ -1,5 +1,3 @@
-BOARD_ROWS = 3
-BOARD_COLS = 3
 
 class Game:
 
@@ -38,73 +36,6 @@ class Game:
         board[row][col] = player
 
 
-    def check_for_win_horizontal(self, board, player):
-        board_size = len(board)
-
-        for row in range(board_size):
-            for col in range(board_size):
-                if row + 4 < board_size \
-                    and board[row][col] == player \
-                        and board[row + 1][col] == player \
-                            and board[row + 2][col] == player:
-                              # and board[row + 3][col] == player \
-                                   # and board[row + 4][col] == player:
-                    return True
-        return False
-
-    def check_for_win_vertical(self, board, player):
-        board_size = len(board)
-
-        for row in range(board_size):
-            for col in range(board_size):
-                if col + 4 < board_size \
-                    and board[row][col] == player \
-                        and board[row][col + 1] == player \
-                            and board[row][col + 2] == player:
-                               # and board[row][col + 3] == player \
-                                    #and board[row][col + 4] == player:
-                    return True
-        return False
-
-    def check_for_win_desc_diagonal(self, board, player):
-        board_size = len(board)
-
-        for row in range(board_size):
-            for col in range(board_size):
-                if row + 4 < board_size and col - 4 >= 0 \
-                    and board[row][col] == player \
-                        and board[row + 1][col - 1] == player \
-                            and board[row + 2][col - 2] == player:
-                                # and board[row + 3][col- 3] == player \
-                                   # and board[row + 4][col - 4] == player:
-                    return True
-        return False
-
-    def check_for_win_asc_diagonal(self, board, player):
-        board_size = len(board)
-
-        for row in range(board_size):
-            for col in range(board_size):
-                if row + 4 < board_size and col + 4 < board_size \
-                    and board[row][col] == player \
-                        and board[row + 1][col + 1] == player \
-                            and board[row + 2][col + 2] == player:
-                               # and board[row + 3][col + 3] == player \
-                                #    and board[row + 4][col + 4] == player:
-                    return True
-        return False
-
-    def check_for_win(self, board, player):
-        if self.check_for_win_horizontal(board, player):
-            return True
-        if self.check_for_win_vertical(board, player):
-            return True
-        if self.check_for_win_asc_diagonal(board, player):
-            return True
-        if self.check_for_win_desc_diagonal(board, player):
-            return True
-        return False
-
     def check_for_tie(self, board):
         for row in range(len(board)):
             for col in range(len(board)):
@@ -112,23 +43,19 @@ class Game:
                     return False
         return True
 
-    def check_win(self, board, player):
-	# vertical win check
-        for col in range(BOARD_COLS):
-            if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+    def check_for_win(self, board, player):
+
+        for col in range(len(board)):
+            if board[0][col] == player and board[1][col] == player and board[2][col] == player and board[3][col] == player and board[4][col] == player :
+                return True
+        for row in range(len(board)):
+            if board[row][0] == player and board[row][1] == player and board[row][2] == player and board[row][3] == player and board[row][4] == player:
                 return True
 
-        # horizontal win check
-        for row in range(BOARD_ROWS):
-            if board[row][0] == player and board[row][1] == player and board[row][2] == player:
-                return True
-
-        # asc diagonal win check
-        if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+        if board[4][0] == player and board[3][1] == player and board[2][2] == player and board[1][3] == player and board[0][4] == player:
             return True
 
-        # desc diagonal win chek
-        if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+        if board[0][0] == player and board[1][1] == player and board[2][2] == player and board[3][3] == player and board[4][4] == player:
             return True
 
         return False
