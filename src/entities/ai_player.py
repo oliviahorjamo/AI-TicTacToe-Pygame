@@ -1,12 +1,16 @@
+from services.game import Game
+
 class AiPlayer:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self):
+        self.game = Game()
 
     def evaluate(self, board):
-        if self.game.check_for_win(board, 2):
-            return 10
-        if self.game.check_for_win(board, 1):
-            return -10
+        if self.game.check_win(board, 2):
+            return 100
+        if self.game.check_win(board, 1):
+            return -100
+        if self.game.check_for_tie(board):
+            return 1
         return 0
 
     def isMovesLeft(self,board):
@@ -22,12 +26,11 @@ class AiPlayer:
         score = self.evaluate(board)
 
         if score == 10: # maximazer has won
-            return 1000
+            return 100
         if score == -10: # minimazer has won
-            return -1000
-
-        if depth == 0: # tie / no moves left
-            return -1
+            return -100
+        if depth == 0:
+            return self.evaluate(board)
 
         if maximizingPlayer:
             value = -1000
@@ -64,7 +67,7 @@ class AiPlayer:
             for col in range(board_size):
                 if board[row][col] == 0:
                     board[row][col] = 2
-                    checked_value = self.minimax(board, 0, -1000, 1000, True)
+                    checked_value = self.minimax(board, 5, -1000, 1000, True)
                     print(board)
                     print(checked_value)
                     board[row][col] = 0
@@ -83,9 +86,3 @@ class AiPlayer:
 #        [ 0, 0, 0, 2, 1 ],
  #       [ 2, 2, 1, 2, 2 ]
  #   ]
-#g = Game()
-#ai = AiPlayer(g)
-
-#best_move = ai.find_best_move(2, board)
-#print("The Optimal Move is :")
-#print("ROW:", best_move[0], " COL:", best_move[1])

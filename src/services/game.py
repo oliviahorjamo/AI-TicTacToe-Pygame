@@ -1,4 +1,9 @@
+BOARD_ROWS = 3
+BOARD_COLS = 3
+
 class Game:
+
+
 
     """A class that represents the game functionalities.
 
@@ -41,9 +46,9 @@ class Game:
                 if row + 4 < board_size \
                     and board[row][col] == player \
                         and board[row + 1][col] == player \
-                            and board[row + 2][col] == player \
-                               and board[row + 3][col] == player \
-                                    and board[row + 4][col] == player:
+                            and board[row + 2][col] == player:
+                              # and board[row + 3][col] == player \
+                                   # and board[row + 4][col] == player:
                     return True
         return False
 
@@ -55,9 +60,9 @@ class Game:
                 if col + 4 < board_size \
                     and board[row][col] == player \
                         and board[row][col + 1] == player \
-                            and board[row][col + 2] == player \
-                                and board[row][col + 3] == player \
-                                    and board[row][col + 4] == player:
+                            and board[row][col + 2] == player:
+                               # and board[row][col + 3] == player \
+                                    #and board[row][col + 4] == player:
                     return True
         return False
 
@@ -69,9 +74,9 @@ class Game:
                 if row + 4 < board_size and col - 4 >= 0 \
                     and board[row][col] == player \
                         and board[row + 1][col - 1] == player \
-                            and board[row + 2][col - 2] == player \
-                                and board[row + 3][col- 3] == player \
-                                    and board[row + 4][col - 4] == player:
+                            and board[row + 2][col - 2] == player:
+                                # and board[row + 3][col- 3] == player \
+                                   # and board[row + 4][col - 4] == player:
                     return True
         return False
 
@@ -83,9 +88,9 @@ class Game:
                 if row + 4 < board_size and col + 4 < board_size \
                     and board[row][col] == player \
                         and board[row + 1][col + 1] == player \
-                            and board[row + 2][col + 2] == player \
-                                and board[row + 3][col + 3] == player \
-                                    and board[row + 4][col + 4] == player:
+                            and board[row + 2][col + 2] == player:
+                               # and board[row + 3][col + 3] == player \
+                                #    and board[row + 4][col + 4] == player:
                     return True
         return False
 
@@ -106,3 +111,24 @@ class Game:
                 if board[row][col] == 0:
                     return False
         return True
+
+    def check_win(self, board, player):
+	# vertical win check
+        for col in range(BOARD_COLS):
+            if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+                return True
+
+        # horizontal win check
+        for row in range(BOARD_ROWS):
+            if board[row][0] == player and board[row][1] == player and board[row][2] == player:
+                return True
+
+        # asc diagonal win check
+        if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+            return True
+
+        # desc diagonal win chek
+        if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+            return True
+
+        return False
