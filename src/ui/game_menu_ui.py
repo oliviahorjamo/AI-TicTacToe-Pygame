@@ -19,8 +19,8 @@ class GameMenuUi:
                 pygame.draw.rect(self.window, self.white, rect, 1)
 
     def draw_x(self, pos_row, pos_col):
-        row_pos = pos_row * self.square_size
-        col_pos = pos_col * self.square_size
+        col_pos = pos_row * self.square_size
+        row_pos = pos_col * self.square_size
         pygame.draw.line(self.window,self.white,
                                     (row_pos, col_pos),
                                     (row_pos + self.square_size,
@@ -33,8 +33,8 @@ class GameMenuUi:
                                     4)
 
     def draw_circle(self, pos_row, pos_col):
-        row_pos = pos_row * self.square_size + self.square_size // 2
-        col_pos = pos_col * self.square_size + self.square_size // 2 - 1
+        col_pos = pos_row * self.square_size + self.square_size // 2
+        row_pos = pos_col * self.square_size + self.square_size // 2 - 1
         pygame.draw.circle(self.window, self.white, (row_pos, col_pos), 12, 3)
 
     def draw_new_game_button(self):

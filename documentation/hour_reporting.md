@@ -30,7 +30,12 @@ Date       | hours | target|
 
 Date       | hours | target|
 -----------|------|--------|
- |   |   |
+6.2.2022 | 8  | debugging the algorithm.  |
+7.2.2022 | 8  | debugging the algorithm and doing research on minimax + alpha-beta pruning. |
+6.2.2022 | 4  | debugging the algorithm and doing research on minimax + alpha-beta pruning. |
+9.2.2022 | 7  | debugging the algorithm and the game board.  |
+9.2.2022 | ?  | debugging the ui and testing the algorithm.  |
+
 
 
 ## Week 5

@@ -7,7 +7,7 @@ class GameBoard:
     """
     def __init__(self):
         """A constructor of the class that initializes the game board."""
-        self.board_size = 20
+        self.board_size = 5
         self.board = [[0 for _ in range(self.board_size)] for _ in range(self.board_size)]
 
     def print_game_board(self):
@@ -18,5 +18,8 @@ class GameBoard:
     def reset_game_board(self):
         """A method that resets the game board"""
         self.grid = [[0 for _ in range(self.board_size)] for _ in range(self.board_size)]
+
+g = GameBoard()
+print(g.board)
 
 
