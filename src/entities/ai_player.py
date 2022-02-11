@@ -1,4 +1,5 @@
 from services.game import Game
+import time 
 
 class AiPlayer:
     def __init__(self, game_board):
@@ -59,6 +60,8 @@ class AiPlayer:
             return value + depth
 
     def find_best_move(self, board):
+        t_1 = time.perf_counter()
+        
         board_size = len(board)
         best_value = -1000
         best_move = (-1, -1)
@@ -76,6 +79,9 @@ class AiPlayer:
                         best_value = checked_value
         print("The value of the best Move is :", best_value)
         print("ROW:", best_move[0], " COL:", best_move[1])
+        t_2 = time.perf_counter()
+        t = t_2-t_1
+        print("time:", t)
         return best_move
 
 #if __name__ == '__main__':
