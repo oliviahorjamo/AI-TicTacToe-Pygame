@@ -1,6 +1,6 @@
 import unittest
 from services.game_board import GameBoard
-from services.game import Game
+from services.game_logic import Game
 
 class TestGameBoard(unittest.TestCase):
     def setUp(self):

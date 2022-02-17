@@ -2,16 +2,16 @@
 import sys
 import pygame
 from services.game_board import GameBoard
-from services.game import Game
+from services.game_logic import GameLogic
 from ui.game_menu_ui import GameMenuUi
 from entities.ai_player import AiPlayer
 
 def main():
     pygame.init()
     game_board = GameBoard()
-    game = Game()
+    game = GameLogic()
     game_ui = GameMenuUi(game_board)
-    ai_player = AiPlayer(game_board)
+    ai_player = AiPlayer(game_board, game)
     ai_turn = False
     ai_move = 2
     human_move = 1
@@ -31,15 +31,15 @@ def main():
                             if game.check_for_space(row, col, board):
                                 game.insert_move(human_move, row, col, board)
                                 game_ui.draw_x(row, col)
-                                if game.check_for_win(board, human_move):
+                                if game.check_for_win(board)[0]:
                                     print('YOU WON!')
                                 else:
                                     ai_turn = True
             if ai_turn == True:
-                pos = ai_player.find_best_move(board)
+                pos = ai_player.find_best_move()
                 game.insert_move(ai_move, pos[0], pos[1], board)
                 game_ui.draw_circle(pos[0], pos[1])
-                if game.check_for_win(board, ai_move):
+                if game.check_for_win(board)[0]:
                     print('AI WON!')
                     ai_turn = False
                 else:

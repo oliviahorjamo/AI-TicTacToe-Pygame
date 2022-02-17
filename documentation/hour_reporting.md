@@ -42,7 +42,8 @@ Date       | hours | target|
 
 Date       | hours | target|
 -----------|------|--------|
- |  |  |
+ | 16.2.2022 | 7 | make winning checks better |
+ | 17.2.2022 | 8 | make minimax checks better |
 
 
 ## Week 6

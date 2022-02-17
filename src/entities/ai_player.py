@@ -1,94 +1,62 @@
-from services.game import Game
-import time 
+from services.game_logic import GameLogic
 
 class AiPlayer:
-    def __init__(self, game_board):
-        self.game = Game()
+    def __init__(self, game_board, played_position):
+        self.game = GameLogic()
+        self.played_positions = played_position.played_positions
         self.game_board = game_board
         self.board = game_board.board
 
-    def empty_cells(self,board):
-        board_size = len(board)
-        cells = []
-        for i in range(board_size):
-            for j in range(board_size) :
-                if board[i][j] == 0:
-                    cells.append([i, j])
-        return cells
-
-
-    def minimax(self, node, depth, alpha, beta, maximizingPlayer):
-        board_size = len(self.board)
-        board = self.board
-
-        if self.game.check_for_win(board, 2):
-            return 1000
-        if self.game.check_for_win(board, 1):
-            return -1000
+    def minimax(self, board, depth, alpha, beta, maximizingPlayer, row, col):
+        if self.game.check_for_win(board)[0]:
+            if self.game.check_for_win(board)[1] == 2:
+                return 10000
+            return -10000
         if len(self.game.check_for_tie(board)) == 0:
             return 0
         if depth == 0:
             return 0
 
         if maximizingPlayer:
-            value = -1000
+            value = -10000
 
-            for row in range(board_size):
-                for col in range(board_size):
-                    if board[row][col] == 0:
-                        board[row][col] = 2
-                        node = (row, col)
-                        value = max(value, self.minimax(node, depth - 1, alpha, beta, False))
-                        board[row][col] = 0
+            for pos in self.played_positions:
+                for cell in self.game.neighbors(pos[0], pos[1]):
+                    if self.game.check_for_space(cell[0], cell[1], board):
+                        self.game.insert_move(2, cell[0], cell[1], board)
+                        value = max(value, self.minimax(board, depth - 1, alpha, beta, False, row, col))
+                        self.game.remove_move(cell[0], cell[1], board)
                         alpha = max(alpha, value)
                         if value >= beta:
                             break
             return value - depth
 
         else:
-            value = 1000
-            for row in range(board_size):
-                for col in range(board_size):
-                    if board[row][col] == 0:
-                        node = (row, col)
-                        board[row][col] = 1
-                        value = min(value, self.minimax(node, depth - 1, alpha, beta, False))
-                        board[row][col] = 0
+            value = 10000
+            for pos in self.played_positions:
+                for cell in self.game.neighbors(pos[0], pos[1]):
+                    if self.game.check_for_space(cell[0], cell[1], board):
+                        self.game.insert_move(1, cell[0], cell[1], board)
+                        value = min(value, self.minimax(board, depth - 1, alpha, beta, False, row, col))
+                        self.game.remove_move(cell[0], cell[1], board)
                         beta = min(beta, value)
                         if value <= alpha:
                             break
             return value + depth
 
-    def find_best_move(self, board):
-        t_1 = time.perf_counter()
-        
-        board_size = len(board)
-        best_value = -1000
+    def find_best_move(self):
+        board = self.board
+        best_value = -10000
         best_move = (-1, -1)
-        for row in range(board_size):
-            for col in range(board_size):
-                if board[row][col] == 0:
-                    board[row][col] = 2
-                    node = (row, col)
-                    checked_value = self.minimax(node, 3, -1000, 1000, False)
-                    print(board)
+        for pos in self.played_positions:
+            for cell in self.game.neighbors(pos[0], pos[1]):
+                if self.game.check_for_space(cell[0], cell[1], board):
+                    self.game.insert_move(2, cell[0], cell[1], board)
+                    checked_value = self.minimax(board, 3, -10000, 10000, False, cell[0], cell[1])
+                    print(self.game_board.print_game_board())
                     print(checked_value)
-                    board[row][col] = 0
+                    self.game.remove_move(cell[0], cell[1], board)
                     if checked_value >= best_value:
-                        best_move = (row, col)
+                        best_move = (cell[0], cell[1])
                         best_value = checked_value
-        print("The value of the best Move is :", best_value)
-        print("ROW:", best_move[0], " COL:", best_move[1])
-        t_2 = time.perf_counter()
-        t = t_2-t_1
-        print("time:", t)
         return best_move
-
-#if __name__ == '__main__':
- #   board = [
- #       [ 0, 0, 0, 0, 0 ],
-  #      [ 0, 0, 0, 0, 0 ],
- #       [ 1, 1, 1, 1, 0 ],
-#        [ 0, 0, 0, 2, 1 ],
- #       [ 2, 2, 1, 2, 2 ]
- #   ]

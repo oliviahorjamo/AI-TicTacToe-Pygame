@@ -1,5 +1,5 @@
 import unittest
-from services.game import Game
+from services.game_logic import Game
 from services.game_board import GameBoard
 
 class TestGame(unittest.TestCase):
