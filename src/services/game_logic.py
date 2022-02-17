@@ -3,7 +3,7 @@ class GameLogic:
     def __init__(self):
         self.played_positions = []
         self.strike = 5
-        self.grids = 14
+        self.grids = 19
 
     def check_for_space(self, row, col, board):
         if board[row][col] == 0:
