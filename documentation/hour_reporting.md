@@ -44,6 +44,7 @@ Date       | hours | target|
 -----------|------|--------|
  | 16.2.2022 | 7 | make winning checks better |
  | 17.2.2022 | 8 | make minimax checks better |
+ | 19.2.2022 | 2 | docstring, documenting and testing|
 
 
 ## Week 6
@@ -60,6 +61,6 @@ Date       | hours| target|
  2      |    16   |
  3      |    19  |
  4      |     35   |
- 5      |        |
+ 5      |     17   |
  6      |       |
-**Total** | **82**|
+**Total** | **99**|

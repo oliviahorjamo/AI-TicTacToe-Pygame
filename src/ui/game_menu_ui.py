@@ -1,6 +1,5 @@
 import pygame
 from services.renderer import Renderer
-from services.game_board import GameBoard
 
 class GameMenuUi:
     def __init__(self, game_board):

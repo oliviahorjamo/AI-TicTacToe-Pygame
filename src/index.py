@@ -22,7 +22,7 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            if ai_turn == False:
+            if ai_turn is False:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pressed():
                         col = event.pos[0] // game_ui.square_size
@@ -35,7 +35,7 @@ def main():
                                     print('YOU WON!')
                                 else:
                                     ai_turn = True
-            if ai_turn == True:
+            if ai_turn is True:
                 pos = ai_player.find_best_move()
                 game.insert_move(ai_move, pos[0], pos[1], board)
                 game_ui.draw_circle(pos[0], pos[1])
