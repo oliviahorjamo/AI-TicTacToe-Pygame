@@ -50,7 +50,7 @@ Date       | hours | target|
 ## Week 6
 Date       | hours| target|
 -----------|------|--------|
- |  |  |
+22.2.2022 | 10 | make heuristic, fix index out of range error and do testing |
 
 
 ## Totals

@@ -1,4 +1,3 @@
-
 class GameLogic:
     """A class that represents the game logics.
 
@@ -7,13 +6,14 @@ class GameLogic:
                                             where a player has inserted
                                             a move.
             self.strike (int): defines the amount of O's or X's has to be in strike position.
-            self.grids (int) = amount of grids helps with the winning checks.
+            self.grids (int) = last number of the indexes 0-24: helps with the winning checks.
     """
+
     def __init__(self):
         """A constructor of the class that initializes the game logics."""
         self.played_positions = []
         self.strike = 5
-        self.grids = 14
+        self.grids = 24
 
     def check_for_space(self, row, col, board):
         """a method that checks if a player can insert a move into the game board.
@@ -40,7 +40,7 @@ class GameLogic:
             board (matrix): game board
         """
         board[row][col] = player
-        self.played_positions.append((row, col))
+        self.played_positions.append([row, col])
 
     def remove_move(self, row, col, board):
         """A method that removes a move from the played_positions list.
@@ -50,9 +50,9 @@ class GameLogic:
             board (matrix): the game board
         """
         board[row][col] = 0
-        self.played_positions.remove((row, col))
+        self.played_positions.remove([row, col])
 
-    def empty_spaces(self, board):
+    def check_for_tie(self, board):
         """a method that checks if there are no moves left in the game board.
 
         Args:
@@ -65,22 +65,8 @@ class GameLogic:
         for row in range(len(board)):
             for col in range(len(board)):
                 if board[row][col] == 0:
-                    numbers.append([row, col])
-        return numbers
-
-    def check_for_tie(self, board):
-        """A method that checks if there is a tie in the game.
-
-        Args:
-            board (matrix): the game board
-
-        Returns:
-            True (boolean): if there is a tie in the game.
-            False (boolean): if there is no tie in the game.
-        """
-        if len(self.empty_spaces(board)) == 0:
-            return True
-        return False
+                    numbers.append((row, col))
+        return len(numbers)
 
     def neighbors(self, latest_row, latest_col):
         """A method that checks the neighbors of a played position.
@@ -92,17 +78,23 @@ class GameLogic:
         Returns:
             neighbors (list): a list of all the neighbors.
         """
-        possible_neighbors = [(latest_row-1, latest_col-1),
-                             (latest_row-1, latest_col),
-                             (latest_row-1, latest_col+1),
-                             (latest_row, latest_col+1),
-                             (latest_row, latest_col-1),
-                             (latest_row+1, latest_col-1),
-                             (latest_row+1, latest_col),
-                             (latest_row+1, latest_col+1)]
+        possible_neighbors = [(latest_row - 1, latest_col - 1),
+                              (latest_row - 1, latest_col),
+                              (latest_row - 1, latest_col + 1),
+                              (latest_row, latest_col + 1),
+                              (latest_row, latest_col - 1),
+                              (latest_row + 1, latest_col - 1),
+                              (latest_row + 1, latest_col),
+                              (latest_row + 1, latest_col + 1)]
         neighbors = []
         for position in possible_neighbors:
-            neighbors.append(position)
+            if position[0] >= 0 \
+                    and position[1] >= 0 \
+                and position[0] <= self.grids \
+                    and position[1] <= self.grids:
+                neighbors.append(position)
+            else:
+                continue
         return neighbors
 
     def check_for_horizontal_win(self, row, col, board):
@@ -162,9 +154,9 @@ class GameLogic:
         if board[row][col] == 0:
             return False
         for number in range(1, self.strike):
-            if row - number < 0 or  col + number > self.grids:
+            if row - number < 0 or col + number > self.grids:
                 return False
-            if board[row- number][col + number] != board[row][col]:
+            if board[row - number][col + number] != board[row][col]:
                 return False
         return True
 
@@ -185,7 +177,7 @@ class GameLogic:
         for number in range(1, self.strike):
             if row + number > self.grids or col + number > self.grids:
                 return False
-            if board[row + number ][col + number] != board[row][col]:
+            if board[row + number][col + number] != board[row][col]:
                 return False
         return True
 
@@ -202,12 +194,9 @@ class GameLogic:
         for position in self.played_positions:
             row = position[0]
             col = position[1]
-            if self.check_for_horizontal_win(row, col, board):
-                return True, board[row][col]
-            if self.check_for_vertical_win(row, col, board):
-                return True, board[row][col]
-            if self.check_for_asc_diagonal_win(row, col, board):
-                return True, board[row][col]
-            if self.check_for_desc_diagonal_win(row, col, board):
-                return True, board[row][col]
-        return False, None
+            if self.check_for_horizontal_win(row, col, board) \
+                or self.check_for_vertical_win(row, col, board) \
+                    or self.check_for_asc_diagonal_win(row, col, board) \
+            or self.check_for_desc_diagonal_win(row, col, board):
+                return True
+        return False

@@ -1,5 +1,6 @@
 import pygame
 
+
 class Renderer:
     """A class that represents the handling of rendering in the game."""
 

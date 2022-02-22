@@ -20,4 +20,4 @@ I noticed that my algorithm is only working when 'isMaximizerPlayer' is set to f
 
 ## Next week
 
-I am going to make heuristics and fix 'index out of range' problem.
+I will try to make the algorithm more faster and fix 'index out of range' problem.
