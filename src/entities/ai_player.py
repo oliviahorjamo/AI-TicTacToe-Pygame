@@ -1,3 +1,4 @@
+import time
 from services.game_logic import GameLogic
 from services.evaluate import Evaluate
 
@@ -80,6 +81,8 @@ class AiPlayer:
         Returns:
             best_move (tuple): the best move the the maximizer can make.
         """
+
+        t_1 = time.perf_counter()
         best_value = -10000
         best_move = (-1, -1)
         visited = set()
@@ -97,4 +100,7 @@ class AiPlayer:
                     if checked_value > best_value:
                         best_move = (cell[0], cell[1])
                         best_value = checked_value
+        t_2 = time.perf_counter()
+        t = t_2-t_1
+        print("time:", t)
         return best_move
