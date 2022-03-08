@@ -37,8 +37,8 @@ class AiPlayer:
         """
         if self.game.check_for_win(board):
             if is_maximizing_player:
-                return self.eval.evaluate_movement(row, col, board)
-            return -10000
+                return 100000
+            return -100000
 
         if self.game.check_for_tie(board) == 0:
             return 0

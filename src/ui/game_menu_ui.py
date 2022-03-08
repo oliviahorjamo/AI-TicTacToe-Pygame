@@ -4,7 +4,7 @@ from services.renderer import Renderer
 
 class GameMenuUi:
     def __init__(self, game_board):
-        self.render = Renderer(750, 750, (0, 0, 0))
+        self.render = Renderer(750, 800, (0, 0, 0))
         self.window = self.render.window
         self.square_size = 30
         self.white = (250, 250, 250)

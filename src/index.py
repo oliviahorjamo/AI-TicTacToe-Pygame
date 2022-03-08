@@ -13,36 +13,33 @@ def main():
     game = GameLogic()
     game_ui = GameMenuUi(game_board)
     ai_player = AiPlayer(game_board, game)
-    player = 'human'
-    ai_move = 2
-    human_move = 1
     board = game_board.board
+    player = 1
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if player == 'human':
+            if player == 1:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pressed():
                         col = event.pos[0] // game_ui.square_size
                         row = event.pos[1] // game_ui.square_size
-                        if game.check_for_space(row, col, board):
-                            game.insert_move(human_move, row, col, board)
-                            game_ui.draw_x(row, col)
-                            if game.check_for_win(board) is True:
-                                print('YOU WON!')
-                                player = 0
-                            player = 'ai'
-
-            if player == 'ai':
+                        if row <= 24:
+                            if game.check_for_space(row, col, board):
+                                game.insert_move(1, row, col, board)
+                                game_ui.draw_x(row, col)
+                                player += 1
+                    if game_ui.draw_new_game(pygame.mouse.get_pos()) is True:
+                        main()
+            else:
                 pos = ai_player.find_best_move()
-                game.insert_move(ai_move, pos[0], pos[1], board)
+                game.insert_move(2, pos[0], pos[1], board)
                 game_ui.draw_circle(pos[0], pos[1])
-                if game.check_for_win(board) is True:
-                    print('AI WON!')
-                player = 'human'
+                player -= 1
+
         game_ui.draw_game_board()
+        game_ui.draw_new_game_button()
         pygame.display.update()
 
 

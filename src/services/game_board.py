@@ -11,3 +11,7 @@ class GameBoard:
         self.board_size = 25
         self.board = [[0 for _ in range(self.board_size)]
                       for _ in range(self.board_size)]
+
+    def restart(self):
+        self.board = [[0 for _ in range(self.board_size)]
+                      for _ in range(self.board_size)]

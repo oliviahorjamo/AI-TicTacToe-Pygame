@@ -200,3 +200,7 @@ class GameLogic:
             or self.check_for_desc_diagonal_win(row, col, board):
                 return True
         return False
+
+    def restart(self):
+        self.played_positions = []
+
