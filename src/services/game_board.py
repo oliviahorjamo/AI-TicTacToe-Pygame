@@ -2,8 +2,8 @@ class GameBoard:
     """A class that represents the game board.
 
     Attributes:
-                self.board_size: The size of the game board
-                self.board: the game board
+             self.board_size: The size of the game board
+             self.board: the game board
     """
 
     def __init__(self):

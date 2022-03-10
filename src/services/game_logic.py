@@ -59,7 +59,7 @@ class GameLogic:
             board (matrix): the game board
 
         Returns:
-            numbers (list): a list of the unplayed cells.
+            len(numbers) (int): a number of unplayed positions
         """
         numbers = []
         for row in range(len(board)):

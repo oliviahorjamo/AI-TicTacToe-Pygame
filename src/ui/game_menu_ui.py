@@ -4,6 +4,12 @@ from services.renderer import Renderer
 
 class GameMenuUi:
     """_A class that represents the game ui.
+
+    Attributes:
+            self.render (object) = renderer
+            self.window (object) = renders the window
+            self.square_size (int) = size of each square in the game_board
+            self.white (object) = white color
     """
     def __init__(self, game_board):
         """A constructor of the class that initializes the game ui.
@@ -31,8 +37,8 @@ class GameMenuUi:
         """A method to draw the X.
 
         Args:
-            pos_row (_type_): _description_
-            pos_col (_type_): _description_
+            pos_row (int): row position to draw the X
+            pos_col (int): col position to draw the X
         """
         col_pos = pos_row * self.square_size
         row_pos = pos_col * self.square_size
@@ -51,8 +57,8 @@ class GameMenuUi:
         """A method to draw the circle.
 
         Args:
-            pos_row (_type_): _description_
-            pos_col (_type_): _description_
+            pos_row (int): row position to draw the circle.
+            pos_col (int): col position to draw the circle.
         """
         col_pos = pos_row * self.square_size + self.square_size // 2
         row_pos = pos_col * self.square_size + self.square_size // 2 - 1
@@ -71,31 +77,46 @@ class GameMenuUi:
         """A method to find out if the user is clicking the new game button.
 
         Args:
-            mouse (_type_): _description_
+            mouse (tuple): location where the user clicks the screen.
 
         Returns:
-            _type_: _description_
+            True (boolean): if the user clicks the new game button.
+            False (boolean): if the user does not click the new game button.
         """
         if pygame.Rect((pygame.Rect(624, 760, 115, 25))).collidepoint(mouse):
             return True
         return False
 
     def draw_text(self, text):
+        """A method to create base for text logic.
+
+        Args:
+            text (string): the text
+        """
         font = pygame.font.SysFont('Times New Roman', 20)
         text = font.render(f'{text}', False, (250, 250, 250))
         self.render.window.blit(text, (20, 760, 115, 30))
 
     def draw_show_ai_turn(self):
+        """A method to show that it is Ai's turn.
+        """
         location = pygame.Rect(15, 760, 200, 25)
         pygame.draw.rect(self.window, (0, 0, 0), location)
         self.draw_text('AI IS THINKING...')
 
     def draw_show_human_turn(self):
+        """A method to show that it is human's turn.
+        """
         location = pygame.Rect(15, 760, 200, 25)
         pygame.draw.rect(self.window, (0, 0, 0), location)
         self.draw_text('YOUR TURN!')
 
     def draw_who_won(self, player):
+        """A method to show who won the game
+
+        Args:
+            player (int): the player in turn.
+        """
         location = pygame.Rect(15, 760, 200, 25)
         pygame.draw.rect(self.window, (0, 0, 0), location)
         if player == 1:
@@ -104,9 +125,8 @@ class GameMenuUi:
             self.draw_text('AI WON!')
 
     def draw_tie(self):
+        """A method to show that there is a tie in the game.
+        """
         location = pygame.Rect(15, 760, 200, 25)
         pygame.draw.rect(self.window, (0, 0, 0), location)
         self.draw_text('TIE!')
-
-
-

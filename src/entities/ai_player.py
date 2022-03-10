@@ -12,7 +12,7 @@ class AiPlayer:
         """A constructor of the class that initializes the algorithm.
         Args:
             game_board (object): brings the game_board to the class
-            played_position (object): _brings the played positions to the class.
+            played_position (object): brings the played positions to the class.
         """
         self.game = GameLogic()
         self.played_positions = played_position.played_positions
@@ -38,8 +38,7 @@ class AiPlayer:
         if self.game.check_for_win(board):
             if is_maximizing_player:
                 return 100000
-            else:
-                return -100000
+            return -100000
 
         if depth == 0:
             return self.eval.evaluate_movement(row, col, board)
@@ -102,6 +101,6 @@ class AiPlayer:
                         best_move = (cell[0], cell[1])
                         best_value = checked_value
         t_2 = time.perf_counter()
-        t = t_2-t_1
-        print("ai move:", best_move,"time:", t)
+        calculated_time = t_2-t_1
+        print("ai move:", best_move,"time:", calculated_time)
         return best_move, best_value
