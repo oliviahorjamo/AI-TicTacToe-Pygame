@@ -37,11 +37,9 @@ class Evaluate:
             calculation = direction * number
             if col + calculation > self.game.grids or col + calculation < 0:
                 return 0
-
             if board[row][col + calculation] == 1:
                 result += score * 1000
                 score += 1
-
             else:
                 value = self.evaluate_horizontal(row, col, -direction,
                                                             (self.game.strike - number),

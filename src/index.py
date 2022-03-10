@@ -6,7 +6,6 @@ from services.game_logic import GameLogic
 from ui.game_menu_ui import GameMenuUi
 from entities.ai_player import AiPlayer
 
-
 def main():
     pygame.init()
     game_board = GameBoard()
@@ -38,7 +37,6 @@ def main():
                                     player += 1
                     if game_ui.draw_new_game(pygame.mouse.get_pos()) is True:
                         main()
-
             else:
                 game_ui.draw_show_ai_turn()
                 pygame.display.update()
@@ -55,7 +53,6 @@ def main():
 
         if game.check_for_tie(game_board.board) == 0:
             game_ui.draw_tie()
-
         game_ui.draw_game_board()
         game_ui.draw_new_game_button()
         pygame.display.update()
