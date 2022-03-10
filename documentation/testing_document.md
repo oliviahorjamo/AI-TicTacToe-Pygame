@@ -31,7 +31,7 @@ The program has been tested with automated unit tests and integration tests. Uni
 
 The coverage report shows 100 % for branch testing.
 
-[coverage_report]()
+![coverage_report](pictures/minimax_coverage_report.png)
 
 `GameMenuUi` class and `renderer.py` -file have been excluded from testing because they only run pygame events.
 
