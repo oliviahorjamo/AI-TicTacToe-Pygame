@@ -33,7 +33,7 @@ You can find the latest release [here](https://github.com/riikkayoki/TicTacToe/r
 
 ## Commandline functions
 
-### Installing
+### Installing and starting the program
 
 Install dependencies with the command:
 
