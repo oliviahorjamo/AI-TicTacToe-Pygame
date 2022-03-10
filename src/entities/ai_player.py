@@ -80,6 +80,7 @@ class AiPlayer:
         """A method that evaluates all the available moves using the minimax() method.
         Returns:
             best_move (tuple): the best move the the maximizer can make.
+            best value (int): the best value found. This is used mainly for testing purposes.
         """
 
         t_1 = time.perf_counter()
