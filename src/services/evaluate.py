@@ -1,20 +1,33 @@
 from services.game_logic import GameLogic
 
-
-# https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/?ref=lbp
-# https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-2-evaluation-function/
-
 class Evaluate:
+    """A class that represents the evaluation of the squares in the game.
+    """
     def __init__(self):
+        """A constructor of the class that initializes the evaluation.
+        """
         self.result = 0
         self.game = GameLogic()
         self.grids = self.game.grids
 
     def evaluate_horizontal(self, row, col, direction, strike, depth, board):
+        """A method that evaluates the horizontal positions.
+
+        Args:
+            row (int): row in the game board
+            col (int_): col in the game board
+            direction (int): direction of the evaluation
+            strike (int): the sequence
+            depth (int): _description_
+            board (matrix): _description_
+
+        Returns:
+            the result of the horizontal position evaluation.
+        """
         result = 0
         score = 1
 
-        if depth == 0 or self.game.strike == 0:
+        if depth == 0:
             return 0
 
         for number in range(1, strike):
@@ -23,12 +36,13 @@ class Evaluate:
                 return 0
 
             if board[row][col + calculation] == 1:
-                result += score * 2
+                result += score * 1000
                 score += 1
-            if board[row][col + calculation] == 2:
+
+            else:
                 best_value = self.evaluate_horizontal(row, col, -direction,
                                                             (self.game.strike - number),
-                                                            depth - 1, board)
+                                                            (depth - 1), board)
                 return best_value
             result += 1
         return result
@@ -36,7 +50,7 @@ class Evaluate:
     def evaluate_vertical(self, row, col, direction, strike, depth, board):
         result = 0
         score = 1
-        if depth == 0 or self.game.strike == 0:
+        if depth == 0:
             return 0
 
         for number in range(1, strike):
@@ -44,9 +58,9 @@ class Evaluate:
             if row + calculation > self.game.grids or row + calculation < 0:
                 return 0
             if board[row + calculation][col] == 1:
-                result += score * 2
+                result += score * 1000
                 score += 1
-            if board[row + calculation][col] == 2:
+            else:
                 best_value = self.evaluate_vertical(row, col, -direction,
                                                         (self.game.strike - number),
                                                         (depth - 1), board)
@@ -58,7 +72,7 @@ class Evaluate:
         result = 0
         score = 1
 
-        if depth == 0 or self.game.strike == 0:
+        if depth == 0:
             return 0
 
         for number in range(1, strike):
@@ -69,9 +83,9 @@ class Evaluate:
                         or col + calculation > self.game.grids:
                 return 0
             if board[row + calculation][col + calculation] == 1:
-                result += score * 2
+                result += score * 1000
                 score += 1
-            if board[row + calculation][col + calculation] == 2:
+            else:
                 best_value = self.evaluate_asc_diagonal(row, col, -direction,
                                                             (self.game.strike - number),
                                                             (depth - 1), board)
@@ -83,7 +97,7 @@ class Evaluate:
         result = 0
         score = 1
 
-        if depth == 0 or self.game.strike == 0:
+        if depth == 0:
             return 0
 
         for number in range(1, strike):
@@ -94,9 +108,9 @@ class Evaluate:
                         or col - calculation > self.game.grids:
                 return 0
             if board[row + calculation][col - calculation] == 1:
-                result += score * 2
+                result += score * 1000
                 score += 1
-            if board[row + calculation][col - calculation] == 2:
+            else:
                 best_value = self.evaluate_desc_diagonal(row, col, -direction,
                                                             (self.game.strike - number),
                                                             (depth - 1), board)
@@ -107,7 +121,7 @@ class Evaluate:
     def evaluate_movement(self, row, col, board):
         result = 0
         direction = 1
-        depth = 3
+        depth = 2
         strike = self.game.strike
 
         result += self.evaluate_horizontal(row, col, direction, strike, depth, board)

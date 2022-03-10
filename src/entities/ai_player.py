@@ -38,18 +38,19 @@ class AiPlayer:
         if self.game.check_for_win(board):
             if is_maximizing_player:
                 return 100000
-            return -100000
-
-        if self.game.check_for_tie(board) == 0:
-            return 0
+            else:
+                return -100000
 
         if depth == 0:
             return self.eval.evaluate_movement(row, col, board)
 
-        if is_maximizing_player:
-            value = -10000
+        if self.game.check_for_tie(board) == 0:
+            return 0
 
-            for pos in reversed(self.played_positions):
+        if is_maximizing_player:
+            value = -100000
+
+            for pos in self.played_positions:
                 for cell in self.game.neighbors(pos[0], pos[1]):
                     if self.game.check_for_space(cell[0], cell[1], board):
                         self.game.insert_move(2, cell[0], cell[1], board)
@@ -57,24 +58,24 @@ class AiPlayer:
                                                         alpha, beta, False,
                                                         row, col))
                         self.game.remove_move(cell[0], cell[1], board)
-                        alpha = max(alpha, value)
-                        if value >= beta:
-                            break
-            return value - depth
-
-        value = 10000
-        for pos in reversed(self.played_positions):
-            for cell in self.game.neighbors(pos[0], pos[1]):
-                if self.game.check_for_space(cell[0], cell[1], board):
-                    self.game.insert_move(1, cell[0], cell[1], board)
-                    value = min(value, self.minimax(board, depth - 1,
-                                                        alpha, beta, True,
-                                                        row, col))
-                    self.game.remove_move(cell[0], cell[1], board)
-                    beta = min(beta, value)
+                    if value >= beta:
+                        break
+                    alpha = max(alpha, value)
+            return value
+        else:
+            value = 100000
+            for pos in self.played_positions:
+                for cell in self.game.neighbors(pos[0], pos[1]):
+                    if self.game.check_for_space(cell[0], cell[1], board):
+                        self.game.insert_move(1, cell[0], cell[1], board)
+                        value = min(value, self.minimax(board, depth - 1,
+                                                            alpha, beta, True,
+                                                            row, col))
+                        self.game.remove_move(cell[0], cell[1], board)
                     if value <= alpha:
                         break
-        return value + depth
+                    beta = min(beta, value)
+            return value
 
     def find_best_move(self):
         """A method that evaluates all the available moves using the minimax() method.
@@ -83,10 +84,10 @@ class AiPlayer:
         """
 
         t_1 = time.perf_counter()
-        best_value = -10000
+        best_value = -100000
         best_move = (-1, -1)
         visited = set()
-        for pos in reversed(self.played_positions):
+        for pos in self.played_positions:
             for cell in self.game.neighbors(pos[0], pos[1]):
                 if cell in visited:
                     continue
@@ -94,7 +95,7 @@ class AiPlayer:
                 if self.game.check_for_space(cell[0], cell[1], self.board):
                     self.game.insert_move(2, cell[0], cell[1], self.board)
                     checked_value = self.minimax(self.board, 3,
-                                                -10000, 10000, True,
+                                                -100000, 100000, True,
                                                 cell[0], cell[1])
                     self.game.remove_move(cell[0], cell[1], self.board)
                     if checked_value > best_value:
@@ -102,5 +103,5 @@ class AiPlayer:
                         best_value = checked_value
         t_2 = time.perf_counter()
         t = t_2-t_1
-        print("time:", t)
-        return best_move
+        print("ai move:", best_move,"time:", t)
+        return best_move, best_value

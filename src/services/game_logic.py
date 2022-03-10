@@ -93,8 +93,6 @@ class GameLogic:
                 and position[0] <= self.grids \
                     and position[1] <= self.grids:
                 neighbors.append(position)
-            else:
-                continue
         return neighbors
 
     def check_for_horizontal_win(self, row, col, board):
@@ -194,13 +192,12 @@ class GameLogic:
         for position in self.played_positions:
             row = position[0]
             col = position[1]
-            if self.check_for_horizontal_win(row, col, board) \
-                or self.check_for_vertical_win(row, col, board) \
-                    or self.check_for_asc_diagonal_win(row, col, board) \
-            or self.check_for_desc_diagonal_win(row, col, board):
+            if self.check_for_horizontal_win(row, col, board):
+                return True
+            if self.check_for_vertical_win(row, col, board):
+                return True
+            if self.check_for_asc_diagonal_win(row, col, board):
+                return True
+            if self.check_for_desc_diagonal_win(row, col, board):
                 return True
         return False
-
-    def restart(self):
-        self.played_positions = []
-

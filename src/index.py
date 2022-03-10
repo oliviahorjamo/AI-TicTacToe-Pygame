@@ -27,16 +27,34 @@ def main():
                         row = event.pos[1] // game_ui.square_size
                         if row <= 24:
                             if game.check_for_space(row, col, board):
-                                game.insert_move(1, row, col, board)
                                 game_ui.draw_x(row, col)
-                                player += 1
+                                game.insert_move(1, row, col, board)
+                                cell = (row, col)
+                                print('human move:', cell)
+                                pygame.display.update()
+                                if game.check_for_win(game_board.board):
+                                    game_ui.draw_who_won(player)
+                                else:
+                                    player += 1
                     if game_ui.draw_new_game(pygame.mouse.get_pos()) is True:
                         main()
+
             else:
-                pos = ai_player.find_best_move()
+                game_ui.draw_show_ai_turn()
+                pygame.display.update()
+                pos = ai_player.find_best_move()[0]
                 game.insert_move(2, pos[0], pos[1], board)
                 game_ui.draw_circle(pos[0], pos[1])
-                player -= 1
+                if game.check_for_win(game_board.board):
+                    game_ui.draw_who_won(player)
+                    player = 1
+                    print('AI won')
+                else:
+                    player -= 1
+                    game_ui.draw_show_human_turn()
+
+        if game.check_for_tie(game_board.board) == 0:
+            game_ui.draw_tie()
 
         game_ui.draw_game_board()
         game_ui.draw_new_game_button()

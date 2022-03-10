@@ -39,7 +39,7 @@ class TestGameLogic(unittest.TestCase):
         self.game.insert_move('X', 3, 0, self.board)
         self.assertEqual(self.game.check_for_win(self.board), False)
         self.game.insert_move('X', 4, 0, self.board)
-        self.assertEqual(self.game.check_for_win(self.board), True, 'X')
+        self.assertEqual(self.game.check_for_win(self.board), True)
 
     def test_check_for_desc_diagonal_win(self):
         self.game.insert_move(0, 0, 0, self.board)
@@ -82,3 +82,4 @@ class TestGameLogic(unittest.TestCase):
         self.assertEqual(self.game.neighbors(5, 5), n)
         n = []
         self.assertEqual(self.game.neighbors(30, -1), n)
+        self.assertEqual(self.game.neighbors(30, 30), n)
