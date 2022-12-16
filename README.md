@@ -4,12 +4,13 @@
 
 This program is a version of a TicTacToe game, in which a human player plays against an AI (Artificial Intelligence) opponent.
 
+Example 1           |  Example 2
+:-------------------------:|:-------------------------:
+![1](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-1.png)  |![2](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-2.png)
 
-
-![1](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-1.png)  ![2](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-2.png)
-
-
-![3](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/documentation/pictures/visualization-3.png)  ![4](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-4.png)
+Example 3          |  Example 4
+:-------------------------:|:-------------------------:
+![3](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-3.png) | ![4](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-4.png)
 
 ## Python version
 
