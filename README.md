@@ -6,10 +6,10 @@ This program is a version of a TicTacToe game, in which a human player plays aga
 
 
 
-![1](https://github.com/riikkayoki/TicTacToe/tree/master/documentation/pictures/documentation/pictures/visualization-1.png)  ![2](https://github.com/riikkayoki/TicTacToe/tree/master/documentation/pictures/visualization-2.png)
+![1](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-1.png)  ![2](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-2.png)
 
 
-![3](https://github.com/riikkayoki/TicTacToe/tree/master/documentation/pictures/documentation/pictures/visualization-3.png)  ![4](https://github.com/riikkayoki/TicTacToe/tree/master/documentation/pictures/visualization-4.png)
+![3](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/documentation/pictures/visualization-3.png)  ![4](https://github.com/riikkayoki/TicTacToe/blob/master/documentation/pictures/visualization-4.png)
 
 ## Python version
 
